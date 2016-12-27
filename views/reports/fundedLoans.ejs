@@ -1,0 +1,58 @@
+<div class="container">
+<h1>Loans Funded: <%= date %></h1>
+
+<div class="container">
+    <div class="row" >
+      <form method="post" style="max-width:300px;">
+        <span class="input-group date" data-provide="datepicker" class="datepicker">
+          <input type="text" class="form-control" name="date" value="<%= date %>"/>
+          <div class="input-group-addon">
+              <span class="glyphicon glyphicon-calendar"></span>
+          </div>
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="submit">Submit</button>
+          </span>
+        </span>
+      </form>
+    </div>
+</div>
+<br/><br/>
+
+<table class="table">
+  <tr>
+    <th>Investor</th>
+    <th>Investor #</th>
+    <th>Loan #</th>
+    <th>Borrower Name</th>
+    <th>Loan Amount</th>
+    <th>Processor</th>
+    <th>Loan Officer</th>
+  </tr>
+
+  <% var loanAmtTotal = parseFloat(0.00); %>
+
+  <% for( var i = 0; i < results.length; i++ ) { %>
+  <tr>
+    <td><%= results[i].investor %></td>
+    <td><%= results[i].investorNum %></td>
+    <td><%= results[i].loanNum %></td>
+    <td><%= results[i].b1_lname + ", " + results[i].b1_fname %></td>
+    <td><%= results[i].loanAmt %></td>
+    <% loanAmtTotal += parseFloat(results[i].loanAmt.replace(/[$,]/g, "") )  %>
+    <td><%= results[i].processor %></td>
+    <td><%= results[i].loan_officer %></td>
+  </tr>
+  <% } %>
+
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th>Count: <%= results.length %></th>
+    <th>Total: <%= "$" + loanAmtTotal %></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+</table>
+</container>
