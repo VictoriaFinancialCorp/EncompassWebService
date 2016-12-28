@@ -116,7 +116,3 @@ npm-debug.log
 nbproject
 .idea
 .node_history
-
-
-#ignore db config
-config/connections.js
