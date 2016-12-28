@@ -49,7 +49,9 @@
     <th></th>
     <th></th>
     <th>Count: <%= results.length %></th>
-    <th>Total: <%= "$" + loanAmtTotal %></th>
+
+    num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+    <th>Total: <%= "$" + loanAmtTotal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") %></th>
     <th></th>
     <th></th>
   </tr>
