@@ -40,6 +40,9 @@ module.exports = {
     fundedDate:{
       type: 'date'
     },
+    purchasedDate:{
+      type:'date'
+    },
     investor:{
       type:'string'
     },

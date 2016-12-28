@@ -9,7 +9,17 @@ module.exports = {
 	FundedLoans: function (req, res) {
 		var date;
 		if(!req.param('date')){
-			date = "12/21/2016";
+			var today = new Date();
+			var mm = today.getMonth()+1;
+			var dd = today.getDate();
+			var yyyy = today.getFullYear();
+			if(dd<10) {
+			    dd='0'+dd
+			}
+			if(mm<10) {
+			    mm='0'+mm
+			}
+			date = mm + "/"+ dd + "/"+ yyyy;
 		}else{
 			date = req.param('date');
 		}
@@ -21,6 +31,28 @@ module.exports = {
 			return res.view("reports/fundedLoans", {results, date} );
 		});
 
-  }
+  },
+	LoansNotPurchased: function(req, res){
+		var today = new Date();
+		var mm = today.getMonth()+1;
+		var dd = today.getDate();
+		var yyyy = today.getFullYear();
+		if(dd<10) {
+				dd='0'+dd
+		}
+		if(mm<10) {
+				mm='0'+mm
+		}
+		date = mm + "/"+ dd + "/"+ yyyy;
+		Loan.find({
+			fundedDate: { '!': null },
+			purchasedDate:  null ,
+			sort:'fundedDate ASC'
+		}).exec(function(err, loans){
+			//sails.log(loans);
+			return res.view("reports/LoansNotPurchased", {loans, date});
+		});
+
+	}
 
 };

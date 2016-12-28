@@ -1,0 +1,45 @@
+<div class="container">
+<h1>Loans Not Purchased as of: <%= date %></h1>
+
+<table class="table">
+  <tr>
+    <th>Investor</th>
+    <th>Investor #</th>
+    <th>Loan #</th>
+    <th>Borrower Name</th>
+    <th>Loan Amount</th>
+    <th>Processor</th>
+    <th>Loan Officer</th>
+    <th>Funded Date</th>
+  </tr>
+
+  <% var loanAmtTotal = parseFloat(0.00); %>
+
+  <% for( var i = 0; i < loans.length; i++ ) { %>
+    <% var fundedDate = loans[i].fundedDate.toString().split(" "); %>
+  <tr>
+    <td><%= loans[i].investor %></td>
+    <td><%= loans[i].investorNum %></td>
+    <td><%= loans[i].loanNum %></td>
+    <td><%= loans[i].b1_lname + ", " + loans[i].b1_fname %></td>
+    <td><%= loans[i].loanAmt %></td>
+    <% loanAmtTotal += parseFloat(loans[i].loanAmt.replace(/[$,]/g, "") )  %>
+    <td><%= loans[i].processor %></td>
+    <td><%= loans[i].loan_officer %></td>
+    <td><%= fundedDate[1] + " " + fundedDate[2] + ", " + fundedDate[3] %></td>
+  </tr>
+  <% } %>
+
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th>Count: <%= loans.length %></th>
+
+    <th>Total: <%= "$" + loanAmtTotal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") %></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+</table>
+</container>
