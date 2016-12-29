@@ -7,26 +7,28 @@
     <th>Investor #</th>
     <th>Loan #</th>
     <th>Borrower Name</th>
-    <th>Loan Amount</th>
+    <th class="text-center">Loan Amount</th>
     <th>Processor</th>
     <th>Loan Officer</th>
-    <th>Funded Date</th>
+    <th class="text-center">Funded Date</th>
+    <th class="text-center">Days Out</th>
   </tr>
 
   <% var loanAmtTotal = parseFloat(0.00); %>
 
   <% for( var i = 0; i < loans.length; i++ ) { %>
-    <% var fundedDate = loans[i].fundedDate.toString().split(" "); %>
+    <script> console.log("<%= typeof loans[i].fundedDate %>");</script>
   <tr>
     <td><%= loans[i].investor %></td>
     <td><%= loans[i].investorNum %></td>
     <td><%= loans[i].loanNum %></td>
     <td><%= loans[i].b1_lname + ", " + loans[i].b1_fname %></td>
-    <td><%= loans[i].loanAmt %></td>
+    <td class="text-center"><%= loans[i].loanAmt %></td>
     <% loanAmtTotal += parseFloat(loans[i].loanAmt.replace(/[$,]/g, "") )  %>
     <td><%= loans[i].processor %></td>
-    <td><%= loans[i].loan_officer %></td>
-    <td><%= fundedDate[1] + " " + fundedDate[2] + ", " + fundedDate[3] %></td>
+    <td><%= loans[i].loanOfficer %></td>
+    <td class="text-center"><%= dateToFormattedString(loans[i].fundedDate) %></td>
+    <td class="text-center"><%= Math.floor(Math.abs(new Date() - loans[i].fundedDate)/1000/60/60/24) %></td>
   </tr>
   <% } %>
 
@@ -39,7 +41,23 @@
     <th>Total: <%= "$" + loanAmtTotal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") %></th>
     <th></th>
     <th></th>
+    <th></th>
+    <th></th>
   </tr>
 
 </table>
 </container>
+
+<script type="text/javascript">
+<%
+function dateToFormattedString(date){
+  var mm = date.getMonth() + 1;
+  var dd = date.getDate();
+  if(dd < 10){
+    dd = '0' + dd;
+  }
+  var yyyy = date.getFullYear().toString().substring(2);
+  return mm + "/" + dd + "/" + yyyy;
+}
+%>
+</script>

@@ -34,14 +34,37 @@ module.exports = {
     b2_lname:{
       type:'string'
     },
-    milestone:{
+    loan_purpose:{
       type:'string'
     },
+    loan_term:{
+      type:'int'
+    },
+    int_rate:{
+      type:'float'
+    },
+    currentMilestone:{
+      type:'string'
+    },
+    lockedDate:{
+      type:'date',
+      default:null
+    },
+    startedDate:{
+      type: 'date',
+      default: null
+    },
+    submittalDate:{
+      type: 'date',
+      default: null
+    },
     fundedDate:{
-      type: 'date'
+      type: 'date',
+      default: null
     },
     purchasedDate:{
-      type:'date'
+      type:'date',
+      default: null
     },
     investor:{
       type:'string'
@@ -58,7 +81,7 @@ module.exports = {
     processor:{
       type:'string'
     },
-    loan_officer:{
+    loanOfficer:{
       type:'string'
     }
 
