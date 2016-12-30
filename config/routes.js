@@ -37,6 +37,7 @@ module.exports.routes = {
   },
   '/fundedLoans' : 'LoanController.fundedLoans',
   '/LoansNotPurchased' : 'LoanController.LoansNotPurchased',
+  '/FundedWOInvestorLock' : 'LoanController.FundedWOInvestorLock',
   '/reports' : {
     view: 'reports/main'
   },

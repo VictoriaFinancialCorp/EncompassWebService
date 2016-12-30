@@ -1,0 +1,66 @@
+<div class="container">
+<h1>Files Funded w/o Investor Lock as of: <%= date %></h1>
+<h3 style="color:red">These files have been funded but do not have an investor lock recorded. Please address immediately.</h3>
+
+<table class="table">
+  <tr>
+    <th>Investor</th>
+    <th>Investor #</th>
+    <th>Loan #</th>
+    <th>Borrower Name</th>
+    <th>Address</th>
+    <th>Rate</th>
+    <th>Loan Amount</th>
+    <th>Funded Date</th>
+    <th>Total Rebate</th>
+    <th>P/S/I</th>
+    <th>Purpose</th>
+    <th>Processor</th>
+    <th>Loan Officer</th>
+  </tr>
+
+
+  <% for( var i = 0; i < loans.length; i++ ) { %>
+  <tr>
+    <td><%= loans[i].investor %></td>
+    <td><%= loans[i].investorNum %></td>
+    <td><%= loans[i].loanNum %></td>
+    <td><%= loans[i].b1_lname + ", " + loans[i].b1_fname %></td>
+    <td><%= loans[i].address.toUpperCase() %></td>
+    <td><%= loans[i].int_rate.toFixed(3) %></td>
+    <td><%= loans[i].loanAmt %></td>
+    <td><%= dateToFormattedString(loans[i].fundedDate) %></td>
+    <td><%= loans[i].netYSP + loans[i].netSRP %></td>
+    <td><% loans[i].occupancy.toUpperCase() %>
+      <% if(loans[i].occupancy.toUpperCase().match("PRIMARYRESIDENCE")){ %>
+        P
+      <% } else if(loans[i].occupancy.toUpperCase().match("INVESTOR")){ %>
+        I
+      <% } else if(loans[i].occupancy.toUpperCase().match("SECONDARY")){ %>
+        S
+      <% } %>
+    </td>
+    <td><%= loans[i].loan_purpose %></td>
+    <td><%= loans[i].processor %></td>
+    <td><%= loans[i].loanOfficer %></td>
+  </tr>
+  <% } %>
+
+</table>
+</container>
+
+<%
+function dateToFormattedString(date){
+  var mm = date.getMonth() + 1;
+  var dd = date.getDate();
+  if(dd < 10){
+    dd = '0' + dd;
+  }
+  var yyyy = date.getFullYear().toString().substring(2);
+  return mm + "/" + dd + "/" + yyyy;
+
+}
+function percent(value){
+  return String.format();
+}
+%>

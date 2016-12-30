@@ -13,6 +13,7 @@ module.exports = {
       primaryKey: true,
       required: true
     },
+    // address
     address:{
       type: 'string'
     },
@@ -22,6 +23,10 @@ module.exports = {
     state:{
       type: 'string'
     },
+    zip:{
+      type:'string'
+    },
+    // names
     b1_fname:{
       type: 'string'
     },
@@ -40,16 +45,33 @@ module.exports = {
     loan_term:{
       type:'int'
     },
+    occupancy:{
+      type:'string'
+    },
     int_rate:{
       type:'float'
     },
     currentMilestone:{
       type:'string'
     },
+    // lock info
     lockedDate:{
       type:'date',
       default:null
     },
+    victoriaLockDate:{
+      type:'date',
+      default:null
+    },
+    investorLockDate:{
+      type:'date',
+      default:null
+    },
+    investorLockExpDate:{
+      type:'date',
+      default:null
+    },
+    //dates
     startedDate:{
       type: 'date',
       default: null
@@ -83,6 +105,20 @@ module.exports = {
     },
     loanOfficer:{
       type:'string'
+    },
+
+    //rebate
+    baseYSP:{
+      type:'float'
+    },
+    totalAdj:{
+      type:'float'
+    },
+    netYSP:{
+      type:'float'
+    },
+    netSRP:{
+      type:'float'
     }
 
   }
