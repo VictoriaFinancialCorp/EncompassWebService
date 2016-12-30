@@ -30,7 +30,7 @@
     <td><%= loans[i].int_rate.toFixed(3) %></td>
     <td><%= loans[i].loanAmt %></td>
     <td><%= dateToFormattedString(loans[i].fundedDate) %></td>
-    <td><%= loans[i].netYSP + loans[i].netSRP %></td>
+    <td><%= (loans[i].baseYSP + loans[i].totalAdj + loans[i].netYSP + loans[i].netSRP).toFixed(3) %></td>
     <td><% loans[i].occupancy.toUpperCase() %>
       <% if(loans[i].occupancy.toUpperCase().match("PRIMARYRESIDENCE")){ %>
         P

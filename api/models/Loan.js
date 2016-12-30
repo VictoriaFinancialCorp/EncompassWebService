@@ -71,13 +71,26 @@ module.exports = {
       type:'date',
       default:null
     },
-    //dates
+
+    //milestone dates
     startedDate:{
       type: 'date',
       default: null
     },
     submittalDate:{
       type: 'date',
+      default: null
+    },
+    CTCDate:{
+      type:'date',
+      default: null
+    },
+    docsDrawnDate:{
+      type:'date',
+      default: null
+    },
+    docsSignedDate:{
+      type:'date',
       default: null
     },
     fundedDate:{
@@ -88,6 +101,11 @@ module.exports = {
       type:'date',
       default: null
     },
+    completionDate:{
+      type: 'date',
+      default: null
+    },
+
     investor:{
       type:'string'
     },
