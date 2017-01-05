@@ -32,16 +32,13 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': {
-    view: 'reports/main'
-  },
+  '/': { view: 'reports/main' },
   '/fundedLoans' : 'LoanController.fundedLoans',
   '/LoansNotPurchased' : 'LoanController.LoansNotPurchased',
   '/FundedWOInvestorLock' : 'LoanController.FundedWOInvestorLock',
   '/CTCNotFunded' : 'LoanController.CTCNotFunded',
-  '/reports' : {
-    view: 'reports/main'
-  },
+  '/ProcessorActive' : 'LoanController.ProcessorActive',
+  '/reports' : { view: 'reports/main' },
   '/logs' : 'LogController.viewLogs'
 
   /***************************************************************************

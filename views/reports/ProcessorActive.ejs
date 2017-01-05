@@ -1,0 +1,90 @@
+<div class="container">
+<h1>Processor Report (not funded) as of: <%= date %></h1>
+</div>
+
+<table class="table">
+  <tr>
+    <th>Milestone</th>
+    <th>Date Started</th>
+    <th>Date Submitted</th>
+    <th>Loan #</th>
+    <th>Borrower Name</th>
+    <th>Address </th>
+    <th class="text-center">Loan Amount</th>
+    <th>Purpose</th>
+    <th>Term</th>
+    <th>Rate</th>
+    <th>Victoria Lock Date</th>
+    <th>Processor</th>
+    <th>Loan Officer</th>
+    <th>Milestone Notes</th>
+
+  </tr>
+
+  <% var loanAmtTotal = parseFloat(0.00); %>
+
+  <% for( var i = 0; i < loans.length; i++ ) { %>
+  <tr>
+    <td><%= loans[i].currentMilestone %></td>
+    <td><%= dateToFormattedString(loans[i].startedDate) %></td>
+    <td><%= dateToFormattedString(loans[i].submittalDate) %></td>
+    <td><%= loans[i].loanNum %></td>
+    <td><%= loans[i].b1_lname + ", " + loans[i].b1_fname %></td>
+    <td><%= loans[i].address %></td>
+    <td class="text-center"><%= loans[i].loanAmt %></td>
+    <% loanAmtTotal += parseFloat(loans[i].loanAmt.replace(/[$,]/g, "") )  %>
+    <td><% loans[i].occupancy.toUpperCase() %>
+      <% if(loans[i].occupancy.toUpperCase().match("PRIMARYRESIDENCE")){ %>
+        P
+      <% } else if(loans[i].occupancy.toUpperCase().match("INVESTOR")){ %>
+        I
+      <% } else if(loans[i].occupancy.toUpperCase().match("SECONDARY")){ %>
+        S
+      <% } %>
+    </td>
+    <td><%= loans[i].loan_purpose %></td>
+    <td><%= loans[i].int_rate.toFixed(3) %></td>
+    <td><%= dateToFormattedString(loans[i].victoriaLockDate) %></td>
+    <td><%= loans[i].processor %></td>
+    <td><%= loans[i].loanOfficer %></td>
+    <td>pending</td>
+
+  </tr>
+  <% } %>
+
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th>Count: <%= loans.length %></th>
+    <th>Total: <%= "$" + loanAmtTotal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") %></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+</table>
+
+
+<script type="text/javascript">
+<%
+function dateToFormattedString(date){
+  if(date == null){
+    return "";
+  }
+  var mm = date.getMonth() + 1;
+  var dd = date.getDate();
+  if(dd < 10){
+    dd = '0' + dd;
+  }
+  var yyyy = date.getFullYear().toString().substring(2);
+  return mm + "/" + dd + "/" + yyyy;
+}
+%>
+</script>

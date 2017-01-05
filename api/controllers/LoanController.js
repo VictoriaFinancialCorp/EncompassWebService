@@ -97,6 +97,27 @@ module.exports = {
 			if (err) return res.json(err);
 			return res.view('reports/CTCNotFunded', {loans, date});
 		})
+	},
+	ProcessorActive : function(req, res){
+		var today = new Date();
+		var mm = today.getMonth()+1;
+		var dd = today.getDate();
+		var yyyy = today.getFullYear();
+		if(dd<10) {
+				dd='0'+dd
+		}
+		if(mm<10) {
+				mm='0'+mm
+		}
+		date = mm + "/"+ dd + "/"+ yyyy;
+		Loan.find({
+			fundedDate: null,
+			startedDate: {'>': new Date('1/1/2016') },
+			sort:'startedDate'
+		}).exec(function(err, loans){
+			if (err) return res.json(err);
+			return res.view('reports/ProcessorActive', {loans, date});
+		})
 	}
 
 };
