@@ -33,8 +33,10 @@
     <td><%= loans[i].address %></td>
     <td class="text-center"><%= loans[i].loanAmt %></td>
     <% loanAmtTotal += parseFloat(loans[i].loanAmt.replace(/[$,]/g, "") )  %>
-    <td><% loans[i].occupancy.toUpperCase() %>
-      <% if(loans[i].occupancy.toUpperCase().match("PRIMARYRESIDENCE")){ %>
+    <td>
+      <% if(typeof loans[i].occupancy == 'undefined'){ %>
+        
+      <% } else if(loans[i].occupancy.toUpperCase().match("PRIMARYRESIDENCE")){ %>
         P
       <% } else if(loans[i].occupancy.toUpperCase().match("INVESTOR")){ %>
         I
