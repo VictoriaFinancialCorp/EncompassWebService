@@ -52,7 +52,34 @@
     <td><%= dateToFormattedString(loans[i].victoriaLockDate) %></td>
     <td><%= loans[i].processor %></td>
     <td><%= loans[i].loanOfficer %></td>
-    <td>pending</td>
+    <%
+    var comments = [];
+
+    //comments += ( loans[i].startedComments == null || loans[i].startedComments.trim() == '') ? "" : loans[i].startedComments ;
+    try{  comments.push(loans[i].startedComments);    }catch(err){  }
+    try{  comments.push(loans[i].processingComments);    } catch(err){  }
+    try{  comments.push(loans[i].submittalComments);    }catch(err){  }
+    try{  comments.push(loans[i].conditionalComments);    }catch(err){  }
+    try{  comments.push(loans[i].resubmittedComments);    }catch(err){  }
+    try{  comments.push(loans[i].approvalComments);    }catch(err){  }
+    try{  comments.push(loans[i].CTCComments);    }catch(err){  }
+    try{  comments.push(loans[i].readyForDocComments);    }catch(err){  }
+    try{  comments.push(loans[i].docsDrawnDate);    }catch(err){  }
+    try{  comments.push(loans[i].docSignedComments);    }catch(err){  }
+    try{  comments.push(loans[i].fundedComments);    }catch(err){  }
+    try{  comments.push(loans[i].shippedComments);    }catch(err){  }
+    try{  comments.push(loans[i].purchasedComments);    }catch(err){  }
+    try{  comments.push(loans[i].completionComments);    }catch(err){  }
+
+
+    %>
+    <td>
+      <% comments.forEach(function(comment){ %>
+        <% if(comment != null && comment.toString().trim() != ''){ %>
+          <%= comment %> <br/>
+        <% } %>
+      <% }) %>
+    </td>
 
   </tr>
   <% } %>

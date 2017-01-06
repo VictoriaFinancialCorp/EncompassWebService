@@ -105,6 +105,64 @@ module.exports = {
       type: 'date',
       default: null
     },
+    //milestone comments
+    startedComments:{
+      type: 'text',
+      default: null
+    },
+    processingComments:{
+      type: 'text',
+      default: null
+    },
+    submittalComments:{
+      type: 'text',
+      default: null
+    },
+    conditionalComments:{
+      type: 'text',
+      default: null
+    },
+    resubmittedComments:{
+      type: 'text',
+      default: null
+    },
+    approvalComments:{
+      type: 'text',
+      default: null
+    },
+    CTCComments:{
+      type: 'text',
+      default: null
+    },
+    readyForDocComments:{
+      type: 'text',
+      default: null
+    },
+    docsDrawnComments:{
+      type: 'text',
+      default: null
+    },
+    docSignedComments:{
+      type: 'text',
+      default: null
+    },
+    fundedComments:{
+      type: 'text',
+      default: null
+    },
+    purchasedComments:{
+      type: 'text',
+      default: null
+    },
+    shippedComments:{
+      type: 'text',
+      default: null
+    },
+    completionComments:{
+      type: 'text',
+      default: null
+    },
+
 
     investor:{
       type:'string'
