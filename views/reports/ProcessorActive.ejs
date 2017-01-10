@@ -2,109 +2,121 @@
 <h1>Processor Report (not funded) as of: <%= date %></h1>
 </div>
 
-<table class="table">
-  <tr>
-    <th>Milestone</th>
-    <th>Date Started</th>
-    <th>Date Submitted</th>
-    <th>Loan #</th>
-    <th>Borrower Name</th>
-    <th>Address </th>
-    <th class="text-center">Loan Amount</th>
-    <th>Purpose</th>
-    <th>Term</th>
-    <th>Rate</th>
-    <th>Victoria Lock Date</th>
-    <th>Processor</th>
-    <th>Loan Officer</th>
-    <th>Milestone Notes</th>
+<table id="table" class="row-border hover compact order-column " cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Milestone</th>
+      <th>Date Started</th>
+      <th>Date Submitted</th>
+      <th>Loan #</th>
+      <th>Borrower Name</th>
+      <th>Address </th>
+      <th class="text-center">Loan Amount</th>
+      <th>Purpose</th>
+      <th>Term</th>
+      <th>Rate</th>
+      <th>Victoria Lock Date</th>
+      <th>Processor</th>
+      <th>Loan Officer</th>
+      <th>Milestone Notes</th>
 
-  </tr>
+    </tr>
+  </thead>
 
   <% var loanAmtTotal = parseFloat(0.00); %>
+  <tbody>
+    <% for( var i = 0; i < loans.length; i++ ) { %>
+    <tr>
+      <td><%= loans[i].currentMilestone %></td>
+      <td><%= dateToFormattedString(loans[i].startedDate) %></td>
+      <td><%= dateToFormattedString(loans[i].submittalDate) %></td>
+      <td><%= loans[i].loanNum %></td>
+      <td><%= loans[i].b1_lname + ", " + loans[i].b1_fname %></td>
+      <td><%= loans[i].address %></td>
+      <td class="text-center"><%= loans[i].loanAmt %></td>
+      <% loanAmtTotal += parseFloat(loans[i].loanAmt.replace(/[$,]/g, "") )  %>
+      <td>
+        <% if(loans[i].occupancy == null){ %>
 
-  <% for( var i = 0; i < loans.length; i++ ) { %>
-  <tr>
-    <td><%= loans[i].currentMilestone %></td>
-    <td><%= dateToFormattedString(loans[i].startedDate) %></td>
-    <td><%= dateToFormattedString(loans[i].submittalDate) %></td>
-    <td><%= loans[i].loanNum %></td>
-    <td><%= loans[i].b1_lname + ", " + loans[i].b1_fname %></td>
-    <td><%= loans[i].address %></td>
-    <td class="text-center"><%= loans[i].loanAmt %></td>
-    <% loanAmtTotal += parseFloat(loans[i].loanAmt.replace(/[$,]/g, "") )  %>
-    <td>
-      <% if(loans[i].occupancy == null){ %>
-
-      <% } else if(loans[i].occupancy.toUpperCase().match("PRIMARYRESIDENCE")){ %>
-        P
-      <% } else if(loans[i].occupancy.toUpperCase().match("INVESTOR")){ %>
-        I
-      <% } else if(loans[i].occupancy.toUpperCase().match("SECONDARY")){ %>
-        S
-      <% } %>
-    </td>
-    <td><%= loans[i].loan_purpose %></td>
-    <td><% if(loans[i].int_rate == null){ } else{ %>
-      <%= loans[i].int_rate.toFixed(3) %>
-      <% } %>
-    </td>
-    <td><%= dateToFormattedString(loans[i].victoriaLockDate) %></td>
-    <td><%= loans[i].processor %></td>
-    <td><%= loans[i].loanOfficer %></td>
-    <%
-    var comments = [];
-
-    //comments += ( loans[i].startedComments == null || loans[i].startedComments.trim() == '') ? "" : loans[i].startedComments ;
-    try{  comments.push(loans[i].startedComments);    }catch(err){  }
-    try{  comments.push(loans[i].processingComments);    } catch(err){  }
-    try{  comments.push(loans[i].submittalComments);    }catch(err){  }
-    try{  comments.push(loans[i].conditionalComments);    }catch(err){  }
-    try{  comments.push(loans[i].resubmittedComments);    }catch(err){  }
-    try{  comments.push(loans[i].approvalComments);    }catch(err){  }
-    try{  comments.push(loans[i].CTCComments);    }catch(err){  }
-    try{  comments.push(loans[i].readyForDocComments);    }catch(err){  }
-    try{  comments.push(loans[i].docsDrawnDate);    }catch(err){  }
-    try{  comments.push(loans[i].docSignedComments);    }catch(err){  }
-    try{  comments.push(loans[i].fundedComments);    }catch(err){  }
-    try{  comments.push(loans[i].shippedComments);    }catch(err){  }
-    try{  comments.push(loans[i].purchasedComments);    }catch(err){  }
-    try{  comments.push(loans[i].completionComments);    }catch(err){  }
-
-
-    %>
-    <td>
-      <% comments.forEach(function(comment){ %>
-        <% if(comment != null && comment.toString().trim() != ''){ %>
-          <%= comment %> <br/>
+        <% } else if(loans[i].occupancy.toUpperCase().match("PRIMARYRESIDENCE")){ %>
+          P
+        <% } else if(loans[i].occupancy.toUpperCase().match("INVESTOR")){ %>
+          I
+        <% } else if(loans[i].occupancy.toUpperCase().match("SECONDARY")){ %>
+          S
         <% } %>
-      <% }) %>
-    </td>
+      </td>
+      <td><%= loans[i].loan_purpose %></td>
+      <td><% if(loans[i].int_rate == null){ } else{ %>
+        <%= loans[i].int_rate.toFixed(3) %>
+        <% } %>
+      </td>
+      <td><%= dateToFormattedString(loans[i].victoriaLockDate) %></td>
+      <td><%= loans[i].processor %></td>
+      <td><%= loans[i].loanOfficer %></td>
+      <%
+      var comments = [];
 
-  </tr>
-  <% } %>
+      //comments += ( loans[i].startedComments == null || loans[i].startedComments.trim() == '') ? "" : loans[i].startedComments ;
+      try{  comments.push(loans[i].startedComments);    }catch(err){  }
+      try{  comments.push(loans[i].processingComments);    } catch(err){  }
+      try{  comments.push(loans[i].submittalComments);    }catch(err){  }
+      try{  comments.push(loans[i].conditionalComments);    }catch(err){  }
+      try{  comments.push(loans[i].resubmittedComments);    }catch(err){  }
+      try{  comments.push(loans[i].approvalComments);    }catch(err){  }
+      try{  comments.push(loans[i].CTCComments);    }catch(err){  }
+      try{  comments.push(loans[i].readyForDocComments);    }catch(err){  }
+      try{  comments.push(loans[i].docsDrawnDate);    }catch(err){  }
+      try{  comments.push(loans[i].docSignedComments);    }catch(err){  }
+      try{  comments.push(loans[i].fundedComments);    }catch(err){  }
+      try{  comments.push(loans[i].shippedComments);    }catch(err){  }
+      try{  comments.push(loans[i].purchasedComments);    }catch(err){  }
+      try{  comments.push(loans[i].completionComments);    }catch(err){  }
 
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th>Count: <%= loans.length %></th>
-    <th>Total: <%= "$" + loanAmtTotal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") %></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+
+      %>
+      <td>
+        <% comments.forEach(function(comment){ %>
+          <% if(comment != null && comment.toString().trim() != ''){ %>
+            <%= comment %> <br/>
+          <% } %>
+        <% }) %>
+      </td>
+
+    </tr>
+    <% } %>
+  </tbody>
+  <!-- <tfooter>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>Count: <%= loans.length %></th>
+      <th>Total: <%= "$" + loanAmtTotal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") %></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </tfooter> -->
 
 </table>
 
 
 <script type="text/javascript">
+document.addEventListener('DOMContentLoaded', function(){
+      $("#table").DataTable({
+         "pageLength": 25
+      });
+}, false);
+
+
+
 <%
 function dateToFormattedString(date){
   if(date == null){
