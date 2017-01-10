@@ -109,14 +109,14 @@
 
 
 <script type="text/javascript">
-
-
-  <%
   document.addEventListener('DOMContentLoaded', function(){
         $("#table").DataTable({
            "pageLength": 25
         });
   }, false);
+
+  <%
+
   function dateToFormattedString(date){
     if(date == null){
       return "";
