@@ -26,6 +26,7 @@ module.exports = {
     zip:{
       type:'string'
     },
+
     // names
     b1_fname:{
       type: 'string'
@@ -52,6 +53,9 @@ module.exports = {
       type:'float'
     },
     currentMilestone:{
+      type:'string'
+    },
+    currentStatus:{
       type:'string'
     },
     // lock info

@@ -25,7 +25,8 @@ module.exports = {
 		}
 
 		Loan.find({
-			fundedDate: date
+			fundedDate: date,
+			currentStatus: [" Active Loan", " Loan Originated"]
 		}).exec(function(err, results){
 			//console.log(results);
 			return res.view("reports/fundedLoans", {results, date} );
@@ -47,6 +48,7 @@ module.exports = {
 		Loan.find({
 			fundedDate: { '!': null },
 			purchasedDate:  null ,
+			currentStatus: [" Active Loan", " Loan Originated"],
 			sort:'fundedDate ASC'
 		}).exec(function(err, loans){
 			//sails.log(loans);
@@ -70,6 +72,7 @@ module.exports = {
 			fundedDate: { '!': null },
 			purchasedDate:  null ,
 			investorLockDate: null,
+			currentStatus: [" Active Loan", " Loan Originated"],
 			sort:'fundedDate ASC'
 		}).exec(function(err, loans){
 			if (err) return res.json(err);
@@ -92,6 +95,7 @@ module.exports = {
 		Loan.find({
 			CTCDate: { '!': null },
 			fundedDate: null,
+			currentStatus: [" Active Loan", " Loan Originated"],
 			sort:'CTCDate ASC'
 		}).exec(function(err, loans){
 			if (err) return res.json(err);
@@ -113,6 +117,7 @@ module.exports = {
 		Loan.find({
 			fundedDate: null,
 			startedDate: {'>': new Date('1/1/2016') },
+			currentStatus: [" Active Loan", " Loan Originated"],
 			sort:'startedDate'
 		}).exec(function(err, loans){
 			if (err) return res.json(err);
