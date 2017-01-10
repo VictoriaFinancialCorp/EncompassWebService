@@ -1,21 +1,33 @@
 <div class="container">
 <h1>Logs</h1>
 
-<table class="table">
-  <tr>
-    <th>Event</th>
-    <th>Message</th>
-    <th>Time</th>
-  </tr>
+<table id="table" class="row-border hover compact order-column">
+  <thead>
+    <tr>
+      <th>Event</th>
+      <th>Message</th>
+      <th>Time</th>
+    </tr>
+  </thead>
 
-  <% for( var i = 0; i < logs.length; i++ ) { %>
-    <% var t = logs[i].createdAt.toString().split(" "); %>
-  <tr>
-    <td><%= logs[i].event_name %></td>
-    <td><%= logs[i].message %></td>
-    <td><%= t[0] + " " + t[1] + " " + t[2] + "," + t[3] + " " + t[4] %></td>
-  </tr>
-  <% } %>
+  <tbody>
+    <% for( var i = 0; i < logs.length; i++ ) { %>
+      <% var t = logs[i].createdAt.toString().split(" "); %>
+    <tr>
+      <td><%= logs[i].event_name %></td>
+      <td><%= logs[i].message %></td>
+      <td><%= t[0] + " " + t[1] + " " + t[2] + "," + t[3] + " " + t[4] %></td>
+    </tr>
+    <% } %>
+  </tbody>
 
 </table>
 </container>
+
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function(){
+        $("#table").DataTable({
+           "pageLength": 25
+        });
+  }, false);
+</script>

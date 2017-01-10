@@ -2,7 +2,7 @@
 <h1>Processor Report (not funded) as of: <%= date %></h1>
 </div>
 
-<table id="table" class="row-border hover compact order-column " cellspacing="0" width="100%">
+<table id="table" class="row-border hover compact order-column ">
   <thead>
     <tr>
       <th>Milestone</th>
@@ -109,26 +109,24 @@
 
 
 <script type="text/javascript">
-document.addEventListener('DOMContentLoaded', function(){
-      $("#table").DataTable({
-         "pageLength": 25
-      });
-}, false);
+  document.addEventListener('DOMContentLoaded', function(){
+        $("#table").DataTable({
+           "pageLength": 25
+        });
+  }, false);
 
-
-
-<%
-function dateToFormattedString(date){
-  if(date == null){
-    return "";
+  <%
+  function dateToFormattedString(date){
+    if(date == null){
+      return "";
+    }
+    var mm = date.getMonth() + 1;
+    var dd = date.getDate();
+    if(dd < 10){
+      dd = '0' + dd;
+    }
+    var yyyy = date.getFullYear().toString().substring(2);
+    return mm + "/" + dd + "/" + yyyy;
   }
-  var mm = date.getMonth() + 1;
-  var dd = date.getDate();
-  if(dd < 10){
-    dd = '0' + dd;
-  }
-  var yyyy = date.getFullYear().toString().substring(2);
-  return mm + "/" + dd + "/" + yyyy;
-}
-%>
+  %>
 </script>
