@@ -1,7 +1,10 @@
 <div class="container">
 <h1>Files Funded w/o Investor Lock as of: <%= date %></h1>
+<% if(loans.length != 0){ %>
 <h3 style="color:red">These files have been funded but do not have an investor lock recorded. Please address immediately.</h3>
-
+<% }else{ %>
+<h3 style="color:green">All clear! There are no files funded without an investor lock.</h3>
+<% } %>
 <table class="table">
   <tr>
     <th>Investor</th>
