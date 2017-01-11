@@ -114,14 +114,28 @@ module.exports = {
 				mm='0'+mm
 		}
 		date = mm + "/"+ dd + "/"+ yyyy;
+
+		var tempDate = new Date();
+		tempDate.setDate(today.getDate()-180);
+		var mm = tempDate.getMonth()+1;
+		var dd = tempDate.getDate();
+		var yyyy = tempDate.getFullYear();
+		if(dd<10) {
+				dd='0'+dd
+		}
+		if(mm<10) {
+				mm='0'+mm
+		}
+		filterDate = mm + "/"+ dd + "/"+ yyyy;
+		//console.log(filterDate);
 		Loan.find({
 			fundedDate: null,
-			startedDate: {'>': new Date('1/1/2016') },
-			currentStatus: [" Active Loan", " Loan Originated"],
+			startedDate: {'>': "7/14/2016" },
+			currentStatus: [" Active Loan", " Loan Originated", null],
 			sort:'startedDate'
 		}).exec(function(err, loans){
 			if (err) return res.json(err);
-			return res.view('reports/ProcessorActive', {loans, date});
+			return res.view('reports/ProcessorActive', {loans, date, filterDate});
 		})
 	}
 
