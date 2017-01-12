@@ -1,0 +1,82 @@
+<div class="container">
+<h1>Loan Docs Drawn, to be Funded</h1>
+</div>
+
+<table id="table" class="table table-hover table-condensed">
+  <thead>
+    <tr>
+      <th>Docs Drawn</th>
+      <th>Milestone</th>
+      <th>Investor</th>
+      <th>Investor #</th>
+      <th>Loan #</th>
+      <th>Borrower Name</th>
+      <th>Loan Amount</th>
+      <th>Address</th>
+      <th>Victoria Lock</th>
+      <th>Inv. Lock Exp</th>
+      <th>Processor</th>
+      <th>Loan Officer</th>
+    </tr>
+  </thead>
+
+  <% var loanAmtTotal = parseFloat(0.00); %>
+  <tbody>
+    <% loans.forEach(function(loan) { %>
+    <tr>
+      <td><%= dateToFormattedString(loan.docsDrawnDate) %></td>
+      <td><%= loan.currentMilestone %></td>
+      <td><%= loan.investor %></td>
+      <td><%= loan.investorNum %></td>
+      <td><%= loan.loanNum %></td>
+      <td><%= loan.b1_lname + ", " + loan.b1_fname %></td>
+      <td><%= loan.loanAmt %></td>
+      <td><%= loan.address %></td>
+      <% loanAmtTotal += parseFloat(loan.loanAmt.replace(/[$,]/g, "") )  %>
+      <td><%= dateToFormattedString(loan.victoriaLockDate) %></td>
+      <td><%= dateToFormattedString(loan.investorLockExpDate) %></td>
+      <td><%= loan.processor %></td>
+      <td><%= loan.loanOfficer %></td>
+    </tr>
+    <% }); %>
+  </tbody>
+
+  <tfoot>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>Count: <%= loans.length %></th>
+
+      <th>Total: <%= "$" + loanAmtTotal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") %></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </tfoot>
+</table>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+    $("#table").DataTable({
+       "pageLength": 25
+    });
+  }, false);
+  <%
+  function dateToFormattedString(date){
+    if (date == null) return " ";
+    var mm = date.getMonth() + 1;
+    var dd = date.getDate();
+    if(dd < 10){
+      dd = '0' + dd;
+    }
+    var yyyy = date.getFullYear().toString().substring(2);
+    return mm + "/" + dd + "/" + yyyy;
+  }
+  %>
+</script>

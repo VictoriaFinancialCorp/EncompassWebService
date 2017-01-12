@@ -39,7 +39,8 @@ module.exports.routes = {
   '/CTCNotFunded' : 'LoanController.CTCNotFunded',
   '/ProcessorActive' : 'LoanController.ProcessorActive',
   '/reports' : { view: 'reports/main' },
-  '/logs' : 'LogController.viewLogs'
+  '/logs' : 'LogController.viewLogs',
+  '/docsDrawn' : 'LoanController.docsDrawn'
 
   /***************************************************************************
   *                                                                          *

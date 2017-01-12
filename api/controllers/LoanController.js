@@ -134,9 +134,20 @@ module.exports = {
 			currentStatus: [" Active Loan", " Loan Originated", null],
 			sort:'startedDate'
 		}).exec(function(err, loans){
-			if (err) return res.json(err);
+			if (err) return res.serverError(err);
 			return res.view('reports/ProcessorActive', {loans, date, filterDate});
 		})
+	},
+	docsDrawn : function(req, res){
+		Loan.find({
+			docsDrawnDate: {'!': null},
+			fundedDate: null,
+			currentStatus: [" Active Loan", " Loan Originated", null],
+			sort:'docsDrawnDate'
+		}).exec(function(err, loans){
+			if (err) return res.serverError(err);
+			return res.view('reports/docsDrawn', {loans});
+		});
 	}
 
 };
