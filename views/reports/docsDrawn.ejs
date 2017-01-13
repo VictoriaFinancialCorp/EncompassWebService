@@ -1,3 +1,5 @@
+<script src="js/moment-with-locales.min.js"></script>
+
 <div class="container">
 <h1>Loan Docs Drawn, to be Funded</h1>
 </div>
@@ -24,7 +26,7 @@
   <tbody>
     <% loans.forEach(function(loan) { %>
     <tr>
-      <td><%= dateToFormattedString(loan.docsDrawnDate) %></td>
+      <td><%= formatDate(loan.docsDrawnDate) %></td>
       <td><%= loan.currentMilestone %></td>
       <td><%= loan.investor %></td>
       <td><%= loan.investorNum %></td>
@@ -33,8 +35,8 @@
       <td><%= loan.loanAmt %></td>
       <td><%= loan.address %></td>
       <% loanAmtTotal += parseFloat(loan.loanAmt.replace(/[$,]/g, "") )  %>
-      <td><%= dateToFormattedString(loan.victoriaLockDate) %></td>
-      <td><%= dateToFormattedString(loan.investorLockExpDate) %></td>
+      <td><%= formatDate(loan.victoriaLockDate) %></td>
+      <td><%= formatDate(loan.investorLockExpDate) %></td>
       <td><%= loan.processor %></td>
       <td><%= loan.loanOfficer %></td>
     </tr>
@@ -68,15 +70,9 @@
     });
   }, false);
   <%
-  function dateToFormattedString(date){
-    if (date == null) return " ";
-    var mm = date.getMonth() + 1;
-    var dd = date.getDate();
-    if(dd < 10){
-      dd = '0' + dd;
-    }
-    var yyyy = date.getFullYear().toString().substring(2);
-    return mm + "/" + dd + "/" + yyyy;
+  function formatDate(date){
+    if(date == null) return " ";
+    return moment(date).format('MM/DD/YY');
   }
   %>
 </script>

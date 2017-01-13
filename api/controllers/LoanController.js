@@ -139,6 +139,7 @@ module.exports = {
 		})
 	},
 	docsDrawn : function(req, res){
+		var moment = require('moment');
 		Loan.find({
 			docsDrawnDate: {'!': null},
 			fundedDate: null,
@@ -146,7 +147,7 @@ module.exports = {
 			sort:'docsDrawnDate'
 		}).exec(function(err, loans){
 			if (err) return res.serverError(err);
-			return res.view('reports/docsDrawn', {loans});
+			return res.view('reports/docsDrawn', {loans, moment});
 		});
 	}
 

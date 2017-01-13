@@ -36,7 +36,6 @@ var jsFilesToInject = [
   'js/dependencies/dataTables.bootstrap.js',
   'js/dependencies/bootstrap.min.js',
   'js/dependencies/**/*.js',
-  'node_modules/moment/min/moment-with-locales.min.js'
 
   // All of the rest of your client-side js files
   // will be injected here in no particular order.
