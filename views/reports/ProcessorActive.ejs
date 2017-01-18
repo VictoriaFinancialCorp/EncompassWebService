@@ -116,18 +116,9 @@
   }, false);
 
   <%
-
   function dateToFormattedString(date){
-    if(date == null){
-      return "";
-    }
-    var mm = date.getMonth() + 1;
-    var dd = date.getDate();
-    if(dd < 10){
-      dd = '0' + dd;
-    }
-    var yyyy = date.getFullYear().toString().substring(2);
-    return mm + "/" + dd + "/" + yyyy;
+    if (date == null) return "";
+    return moment(date).format("MM/DD/YYYY")
   }
   %>
 </script>

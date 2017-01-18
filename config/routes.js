@@ -40,7 +40,8 @@ module.exports.routes = {
   '/ProcessorActive' : 'LoanController.ProcessorActive',
   '/reports' : { view: 'reports/main' },
   '/logs' : 'LogController.viewLogs',
-  '/docsDrawn' : 'LoanController.docsDrawn'
+  '/docsDrawn' : 'LoanController.docsDrawn',
+  '/servicing-collect': 'LoanController.servicingCollect'
 
   /***************************************************************************
   *                                                                          *

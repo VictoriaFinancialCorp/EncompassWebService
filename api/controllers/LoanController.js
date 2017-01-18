@@ -7,19 +7,10 @@
 
 module.exports = {
 	FundedLoans: function (req, res) {
+		var moment = require('moment');
 		var date;
 		if(!req.param('date')){
-			var today = new Date();
-			var mm = today.getMonth()+1;
-			var dd = today.getDate();
-			var yyyy = today.getFullYear();
-			if(dd<10) {
-			    dd='0'+dd
-			}
-			if(mm<10) {
-			    mm='0'+mm
-			}
-			date = mm + "/"+ dd + "/"+ yyyy;
+			date = moment(new Date()).format('MM/DD/YYYY');
 		}else{
 			date = req.param('date');
 		}
@@ -34,17 +25,8 @@ module.exports = {
 
   },
 	LoansNotPurchased: function(req, res){
-		var today = new Date();
-		var mm = today.getMonth()+1;
-		var dd = today.getDate();
-		var yyyy = today.getFullYear();
-		if(dd<10) {
-				dd='0'+dd
-		}
-		if(mm<10) {
-				mm='0'+mm
-		}
-		date = mm + "/"+ dd + "/"+ yyyy;
+		var moment = require('moment');
+		var date = moment(new Date()).format('MM/DD/YYYY');
 		Loan.find({
 			fundedDate: { '!': null },
 			purchasedDate:  null ,
@@ -57,17 +39,8 @@ module.exports = {
 
 	},
 	FundedWOInvestorLock: function(req, res){
-		var today = new Date();
-		var mm = today.getMonth()+1;
-		var dd = today.getDate();
-		var yyyy = today.getFullYear();
-		if(dd<10) {
-				dd='0'+dd
-		}
-		if(mm<10) {
-				mm='0'+mm
-		}
-		date = mm + "/"+ dd + "/"+ yyyy;
+		var moment = require('moment');
+		var date = moment(new Date()).format('MM/DD/YYYY');
 		Loan.find({
 			fundedDate: { '!': null },
 			purchasedDate:  null ,
@@ -81,17 +54,8 @@ module.exports = {
 	},
 
 	CTCNotFunded: function(req, res){
-		var today = new Date();
-		var mm = today.getMonth()+1;
-		var dd = today.getDate();
-		var yyyy = today.getFullYear();
-		if(dd<10) {
-				dd='0'+dd
-		}
-		if(mm<10) {
-				mm='0'+mm
-		}
-		date = mm + "/"+ dd + "/"+ yyyy;
+		var moment = require('moment');
+		var date = moment(new Date()).format('MM/DD/YYYY');
 		Loan.find({
 			CTCDate: { '!': null },
 			fundedDate: null,
@@ -103,42 +67,25 @@ module.exports = {
 		})
 	},
 	ProcessorActive : function(req, res){
-		var today = new Date();
-		var mm = today.getMonth()+1;
-		var dd = today.getDate();
-		var yyyy = today.getFullYear();
-		if(dd<10) {
-				dd='0'+dd
-		}
-		if(mm<10) {
-				mm='0'+mm
-		}
-		date = mm + "/"+ dd + "/"+ yyyy;
+		var moment = require('moment');
+		date = moment(new Date()).format('MM/DD/YYYY');
 
 		var tempDate = new Date();
-		tempDate.setDate(today.getDate()-180);
-		var mm = tempDate.getMonth()+1;
-		var dd = tempDate.getDate();
-		var yyyy = tempDate.getFullYear();
-		if(dd<10) {
-				dd='0'+dd
-		}
-		if(mm<10) {
-				mm='0'+mm
-		}
-		filterDate = mm + "/"+ dd + "/"+ yyyy;
+		tempDate.setDate(tempDate.getDate()-180);
+		filterDate = moment(tempDate).format('MM/DD/YYYY');
 		//console.log(filterDate);
 		Loan.find({
 			fundedDate: null,
-			startedDate: {'>': "7/14/2016" },
+			startedDate: {'>': filterDate },
 			currentStatus: [" Active Loan", " Loan Originated", null],
 			sort:'startedDate'
 		}).exec(function(err, loans){
 			if (err) return res.serverError(err);
-			return res.view('reports/ProcessorActive', {loans, date, filterDate});
+			return res.view('reports/ProcessorActive', {loans, date, filterDate, moment});
 		})
 	},
 	docsDrawn : function(req, res){
+		var numeral = require('numeral');
 		var moment = require('moment');
 		Loan.find({
 			docsDrawnDate: {'!': null},
@@ -147,8 +94,18 @@ module.exports = {
 			sort:'docsDrawnDate'
 		}).exec(function(err, loans){
 			if (err) return res.serverError(err);
-			return res.view('reports/docsDrawn', {loans, moment});
+			return res.view('reports/docsDrawn', {loans, moment, numeral});
 		});
+	},
+	servicingCollect: function(req, res){
+		var moment = require('moment');
+		Loan.find({
+			fundedDate: { '!': null}
+		}).exec(function(err, loans){
+			if(err) res.serverError(err);
+			return res.view('reports/servicingCollect', {loans, moment});
+		});
+
 	}
 
 };
