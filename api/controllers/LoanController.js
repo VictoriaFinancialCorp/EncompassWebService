@@ -25,6 +25,7 @@ module.exports = {
 
   },
 	LoansNotPurchased: function(req, res){
+		var numeral = require('numeral');
 		var moment = require('moment');
 		var date = moment(new Date()).format('MM/DD/YYYY');
 		Loan.find({
@@ -34,7 +35,7 @@ module.exports = {
 			sort:'fundedDate ASC'
 		}).exec(function(err, loans){
 			//sails.log(loans);
-			return res.view("reports/LoansNotPurchased", {loans, date});
+			return res.view("reports/LoansNotPurchased", {numeral, loans, date});
 		});
 
 	},
@@ -98,12 +99,14 @@ module.exports = {
 		});
 	},
 	servicingCollect: function(req, res){
+		var numeral = require('numeral');
 		var moment = require('moment');
 		Loan.find({
-			fundedDate: { '!': null}
+			fundedDate: { '!': null},
+			servicingStatus: [' Current', ' Past Due']
 		}).exec(function(err, loans){
 			if(err) res.serverError(err);
-			return res.view('reports/servicingCollect', {loans, moment});
+			return res.view('reports/servicingCollect', {loans, moment, numeral});
 		});
 
 	}

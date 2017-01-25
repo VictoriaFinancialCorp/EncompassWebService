@@ -14,23 +14,23 @@
     <th class="text-center">Days Out</th>
   </tr>
 
-  <% var loanAmtTotal = parseFloat(0.00); %>
+  <% var loanAmtTotal = numeral(0.00); %>
 
-  <% for( var i = 0; i < loans.length; i++ ) { %>
-    <script> console.log("<%= typeof loans[i].fundedDate %>");</script>
+  <% loans.forEach(function(loan) { %>
+
   <tr>
-    <td><%= loans[i].investor %></td>
-    <td><%= loans[i].investorNum %></td>
-    <td><%= loans[i].loanNum %></td>
-    <td><%= loans[i].b1_lname + ", " + loans[i].b1_fname %></td>
-    <td class="text-center"><%= loans[i].loanAmt %></td>
-    <% loanAmtTotal += parseFloat(loans[i].loanAmt.replace(/[$,]/g, "") )  %>
-    <td><%= loans[i].processor %></td>
-    <td><%= loans[i].loanOfficer %></td>
-    <td class="text-center"><%= dateToFormattedString(loans[i].fundedDate) %></td>
-    <td class="text-center"><%= Math.floor(Math.abs(new Date() - loans[i].fundedDate)/1000/60/60/24) %></td>
+    <td><%= loan.investor %></td>
+    <td><%= loan.investorNum %></td>
+    <td><%= loan.loanNum %></td>
+    <td><%= loan.b1_lname + ", " + loan.b1_fname %></td>
+    <td class="text-center"><%= numeral(loan.loanAmt).format('$0,0.00') %></td>
+    <% loanAmtTotal.add(numeral(loan.loanAmt).value()) %>
+    <td><%= loan.processor %></td>
+    <td><%= loan.loanOfficer %></td>
+    <td class="text-center"><%= dateToFormattedString(loan.fundedDate) %></td>
+    <td class="text-center"><%= Math.floor(Math.abs(new Date() - loan.fundedDate)/1000/60/60/24) %></td>
   </tr>
-  <% } %>
+  <% }); %>
 
   <tr>
     <th></th>
@@ -38,7 +38,7 @@
     <th></th>
     <th>Count: <%= loans.length %></th>
 
-    <th>Total: <%= "$" + loanAmtTotal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") %></th>
+    <th>Total: <%= loanAmtTotal.format('$0,0.00') %></th>
     <th></th>
     <th></th>
     <th></th>

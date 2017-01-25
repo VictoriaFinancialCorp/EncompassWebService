@@ -41,7 +41,8 @@ module.exports.routes = {
   '/reports' : { view: 'reports/main' },
   '/logs' : 'LogController.viewLogs',
   '/docsDrawn' : 'LoanController.docsDrawn',
-  '/servicing-collect': 'LoanController.servicingCollect'
+  '/servicing-collect': 'LoanController.servicingCollect',
+  '/2016-1098': '1098Controller.1098'
 
   /***************************************************************************
   *                                                                          *

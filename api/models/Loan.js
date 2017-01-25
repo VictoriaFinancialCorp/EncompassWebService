@@ -178,7 +178,7 @@ module.exports = {
       type: 'string'
     },
     loanAmt:{
-      type: 'int'
+      type: 'string'
     },
     processor:{
       type:'string'
@@ -199,6 +199,27 @@ module.exports = {
     },
     netSRP:{
       type:'float'
+    },
+
+    //servicing
+    servicingStatus:{
+      type:'string'
+    },
+    firstPaymentDate:{
+      type:'date',
+      default: null
+    },
+    firstPaymentDateInvestor:{
+      type:'date',
+      default: null
+    },
+    mortgageStatementLastPrinted:{
+      type:'date',
+      default: null
+    },
+    paymentsCollected:{
+      type:'integer',
+      default: 0
     }
 
   }

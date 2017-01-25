@@ -1,0 +1,64 @@
+
+<div class="container">
+  <h1>2016 1098 Mortgage Interest Statements</h1>
+
+  <table id="table" class="table table-hover table-condensed">
+    <thead>
+      <tr>
+        <th>Borrower Name</th>
+        <th>Co-Borrower Name</th>
+        <th>Mailing Address</th>
+        <th>Loan Num</th>
+        <th>Interest</th>
+        <th>Remaining Principal Balance</th>
+        <th>Property address</th>
+
+      </tr>
+    </thead>
+
+    <tbody>
+      <% obj.forEach(function(loan) { %>
+        <tr>
+          <td><%= loan[1] + " " + loan[2] + " " + loan[0] %></td>
+          <td><%= loan[3] %></td>
+          <td><%= loan[4] %> <br/><%= loan[5] + ", " + loan[6] + " "+ loan[7] %></td>
+          <td><%= loan[9] %></td>
+          <% if( loan[12] != null) { %>
+            <td><%= numeral(loan[12]).format('$0,0.00') %></td>
+          <% } else { %>
+            <td></td>
+          <% } %>
+          <% if( loan[13] != null) { %>
+            <td><%= numeral(loan[13]).format('$0,0.00') %></td>
+          <% } else { %>
+            <td></td>
+          <% } %>
+          <% if ( loan[18] == 'X'){ %>
+            <td>same as mailing</td>
+          <% }else { %>
+            <td><%= loan[19] %> <br/><%= loan[20]  %></td>
+          <% } %>
+
+        </tr>
+
+      <% }); %>
+
+    </tbody>
+
+
+  </table>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+    $("#table").DataTable({
+       "pageLength": 10
+    });
+  }, false);
+  <%
+  function formatDate(date){
+    if(date == null) return " ";
+    return moment(date).format('MM/DD/YY');
+  }
+  %>
+</script>
