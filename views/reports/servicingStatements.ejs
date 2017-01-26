@@ -27,8 +27,8 @@
 
       <% if(expectedPayments !=0){ %>
 
-        <tr <% if( moment().add(15, 'days') >  moment(loan.firstPaymentDate) ) { %> class='table-warning' <% }
-           else if(expectedPayments == loan.paymentsCollected) { %> class='table-success' <% } %>
+        <tr <% if( moment() >  moment(loan.firstPaymentDate) ) { %> class='alert-danger' <% }
+           else if( moment().add(15, 'days') >  moment(loan.firstPaymentDate) ) { %> class='alert-warning' <% } %>
           >
           <td><%= loan.servicingStatus %></td>
           <td><%= moment(loan.firstPaymentDate).format('MM/DD') %></td>
@@ -68,6 +68,12 @@
   <tr>
     <td>DITECH</td>
     <td>is the 15th</td>
+  </tr>
+</table>
+<table class="table">
+  <tr class="text-center">
+    <td class="alert-warning">*First Payment Date Approaching*</td>
+    <td class="alert-danger">*First Payment Date Past: address immediately*</td>
   </tr>
 </table>
 </container>
