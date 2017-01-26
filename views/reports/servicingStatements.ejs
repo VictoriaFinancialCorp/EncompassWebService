@@ -1,0 +1,89 @@
+<div class="container">
+<h1>Servicing Statements Pending Print</h1>
+
+<table id="table" class="table table-hover table-condensed">
+  <thead>
+    <tr>
+      <th>Servicing Status</th>
+      <th>1st Payment Date</th>
+      <th>1st Payment Investor</th>
+      <!-- <th>Last Printed Statement</th> -->
+      <th>Payments Collected</th>
+      <th>Expected Payments</th>
+      <th>Purchase Date</th>
+      <th>Investor</th>
+      <th>Investor #</th>
+      <th>Loan #</th>
+      <th>Borrower Name</th>
+      <th>Processor</th>
+      <th>Loan Officer</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% loans.forEach( function(loan) { %>
+
+      <% var expectedPayments = moment(loan.firstPaymentDateInvestor).format('MM') - moment(loan.firstPaymentDate).format('MM') %>
+
+      <% if(expectedPayments !=0){ %>
+
+        <tr <% if( moment().add(15, 'days') >  moment(loan.firstPaymentDate) ) { %> class='table-warning' <% }
+           else if(expectedPayments == loan.paymentsCollected) { %> class='table-success' <% } %>
+          >
+          <td><%= loan.servicingStatus %></td>
+          <td><%= moment(loan.firstPaymentDate).format('MM/DD') %></td>
+          <td><%= moment(loan.firstPaymentDateInvestor).format('MM/DD') %></td>
+          <!-- <td><%= moment(loan.mortgageStatementLastPrinted).format('MM/DD') %></td> -->
+          <td><%= loan.paymentsCollected %></td>
+          <td><%= expectedPayments%></td>
+          <td><%= moment(loan.purchasedDate).format('MM/DD') %></td>
+          <td><%= loan.investor %></td>
+          <td><%= loan.investorNum %></td>
+          <td><%= loan.loanNum %></td>
+          <td><%= loan.b1_lname + ", " + loan.b1_fname %></td>
+
+          <td><%= loan.processor %></td>
+          <td><%= loan.loanOfficer %></td>
+        </tr>
+      <% } %>
+
+    <% }); %>
+  </tbody>
+
+</table>
+<hr/>
+<table class="table">
+  <tr>
+    <td>IMPAC</td>
+    <td>we have to collect if not purchased by the 10th of the previous month</td>
+  </tr>
+  <tr>
+    <td>CALIBER</td>
+    <td>needs 18 days left in the month so for months with 31 days we must get purchased by 15th. 30 day months need to be purchased by the 14th</td>
+  </tr>
+  <tr>
+    <td>US BANK</td>
+    <td>has us on a list that we cannot collect</td>
+  </tr>
+  <tr>
+    <td>DITECH</td>
+    <td>is the 15th</td>
+  </tr>
+</table>
+</container>
+
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function(){
+        $("#table").DataTable({
+           "pageLength": 10,
+           "order": [[ 2, "asc" ] , [ 1, "asc" ], [ 6, "asc" ] ]
+        });
+  }, false);
+
+  <%
+  function dateToFormattedString(date){
+    if (date == null) return "";
+    return moment(date).format("MM/DD/YYYY")
+  }
+  %>
+</script>

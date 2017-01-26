@@ -101,18 +101,6 @@ module.exports = {
 			if (err) return res.serverError(err);
 			return res.view('reports/docsDrawn', {loans, moment, numeral});
 		});
-	},
-	servicingCollect: function(req, res){
-		var numeral = require('numeral');
-		var moment = require('moment');
-		Loan.find({
-			fundedDate: { '!': null},
-			servicingStatus: [' Current', ' Past Due']
-		}).exec(function(err, loans){
-			if(err) res.serverError(err);
-			return res.view('reports/servicingCollect', {loans, moment, numeral});
-		});
-
 	}
 
 };
