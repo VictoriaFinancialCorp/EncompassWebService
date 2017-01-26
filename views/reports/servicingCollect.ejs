@@ -1,5 +1,5 @@
 <div class="container">
-<h1>Servicing to Collect</h1>
+<h1>Payments to Collect</h1>
 
 <table id="table" class="table table-hover table-condensed">
   <thead>
@@ -23,34 +23,43 @@
     <% loans.forEach( function(loan) { %>
 
       <% var expectedPayments = moment(loan.firstPaymentDateInvestor).format('MM') - moment(loan.firstPaymentDate).format('MM') %>
+      <% if (expectedPayments != 0) { %>
 
-      <tr <% if(expectedPayments > loan.paymentsCollected) { %> class='table-warning' <% }
-         else if(expectedPayments == loan.paymentsCollected) { %> class='table-success' <% } %> 
-        >
-        <td><%= loan.servicingStatus %></td>
-        <td><%= moment(loan.firstPaymentDate).format('MM/DD') %></td>
-        <td><%= moment(loan.firstPaymentDateInvestor).format('MM/DD') %></td>
-        <td><%= moment(loan.mortgageStatementLastPrinted).format('MM/DD') %></td>
-        <td><%= loan.paymentsCollected %></td>
-              <td><%= expectedPayments%></td>
-        <td><%= loan.investor %></td>
-        <td><%= loan.investorNum %></td>
-        <td><%= loan.loanNum %></td>
-        <td><%= loan.b1_lname + ", " + loan.b1_fname %></td>
+        <tr <% if(moment() >= moment(loan.firstPaymentDate).add(15, 'days').add(loan.paymentsCollected ,'months')   ) { %> class='alert-danger' <% }
+           else if(moment() >= moment(loan.firstPaymentDate).add(loan.paymentsCollected ,'months')  ) { %> class='alert-warning' <% } %>
+          >
+          <td><%= loan.servicingStatus %></td>
+          <td><%= moment(loan.firstPaymentDate).format('MM/DD') %></td>
+          <td><%= moment(loan.firstPaymentDateInvestor).format('MM/DD') %></td>
+          <td><%= moment(loan.mortgageStatementLastPrinted).format('MM/DD/YY') %></td>
+          <td><%= loan.paymentsCollected %></td>
+          <td><%= expectedPayments%></td>
+          <td><%= loan.investor %></td>
+          <td><%= loan.investorNum %></td>
+          <td><%= loan.loanNum %></td>
+          <td><%= loan.b1_lname + ", " + loan.b1_fname %></td>
 
-        <td><%= loan.processor %></td>
-        <td><%= loan.loanOfficer %></td>
-      </tr>
+          <td><%= loan.processor %></td>
+          <td><%= loan.loanOfficer %></td>
+        </tr>
+      <% } %>
     <% }); %>
   </tbody>
 
 </table>
+
+<table class='table'>
+  <tr class="alert-warning"><td>*Payment Expected Soon</td></tr>
+  <tr class="alert-danger"><td>*Payment Overdue</td></tr>
+</table>
+
 </container>
 
 <script type="text/javascript">
   document.addEventListener('DOMContentLoaded', function(){
         $("#table").DataTable({
-           "pageLength": 25
+           "pageLength": 10,
+           "order": [[3, "desc"]]
         });
   }, false);
 
