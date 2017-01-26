@@ -220,6 +220,9 @@ module.exports = {
     paymentsCollected:{
       type:'integer',
       default: 0
+    },
+    loanFolder:{
+      type:'string'
     }
 
   }

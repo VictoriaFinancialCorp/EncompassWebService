@@ -32,6 +32,7 @@ module.exports = {
 			fundedDate: { '!': null },
 			purchasedDate:  null ,
 			currentStatus: [" Active Loan", " Loan Originated"],
+			loanFolder: "My Pipeline",
 			sort:'fundedDate ASC'
 		}).exec(function(err, loans){
 			//sails.log(loans);
@@ -47,6 +48,7 @@ module.exports = {
 			purchasedDate:  null ,
 			investorLockDate: null,
 			currentStatus: [" Active Loan", " Loan Originated"],
+			loanFolder: "My Pipeline",
 			sort:'fundedDate ASC'
 		}).exec(function(err, loans){
 			if (err) return res.json(err);
@@ -61,6 +63,7 @@ module.exports = {
 			CTCDate: { '!': null },
 			fundedDate: null,
 			currentStatus: [" Active Loan", " Loan Originated"],
+			loanFolder: "My Pipeline",
 			sort:'CTCDate ASC'
 		}).exec(function(err, loans){
 			if (err) return res.json(err);
@@ -79,6 +82,7 @@ module.exports = {
 			fundedDate: null,
 			startedDate: {'>': filterDate },
 			currentStatus: [" Active Loan", " Loan Originated", null],
+			loanFolder: "My Pipeline",
 			sort:'startedDate'
 		}).exec(function(err, loans){
 			if (err) return res.serverError(err);
