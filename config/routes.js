@@ -43,6 +43,7 @@ module.exports.routes = {
   '/docsDrawn' : 'LoanController.docsDrawn',
   '/servicing-collect': 'ServicingController.collect',
   '/servicing-statements': 'ServicingController.statements',
+  '/servicing-collected': 'ServicingController.collected',
   '/2016-1098': '1098Controller.1098'
 
   /***************************************************************************

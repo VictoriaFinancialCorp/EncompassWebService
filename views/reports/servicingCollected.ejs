@@ -1,5 +1,5 @@
 <div class="container">
-<h1>Payments to Collect</h1>
+<h1>Payments Collected</h1>
 
 <table id="table" class="table table-hover table-condensed">
   <thead>
@@ -25,8 +25,10 @@
       <% var duration = moment.duration(moment(loan.firstPaymentDateInvestor).diff(moment(loan.firstPaymentDate))); %>
       <% var expectedPayments = Math.round(duration.asMonths());  %>
 
-        <tr <% if(moment() >= moment(loan.firstPaymentDate).add(15, 'days').add(loan.paymentsCollected ,'months')   ) { %> class='alert-danger' <% }
-           else if(moment() >= moment(loan.firstPaymentDate).add(loan.paymentsCollected ,'months')  ) { %> class='alert-warning' <% } %>
+      <% if (loan.paymentsCollected != 0 ) { %>
+
+        <tr <% if(loan.servicingStatus == ' Current'   ) { %> class='alert-warning' <% }
+           else if(loan.servicingStatus == ' Servicing Released' ) { %> class='alert-info' <% } %>
           >
           <td><%= loan.servicingStatus %></td>
           <td><%= moment(loan.firstPaymentDate).format('MM/DD') %></td>
@@ -42,7 +44,7 @@
           <td><%= loan.processor %></td>
           <td><%= loan.loanOfficer %></td>
         </tr>
-
+      <% } %>
     <% }); %>
   </tbody>
 
@@ -50,12 +52,12 @@
 
 <table class='table'>
   <tr class="text-center">
-    <td class="alert-warning">*Payment Expected Soon*</td>
-    <td class="alert-danger">*Payment Overdue*</td>
+    <td class="alert-warning">*Still being serviced*</td>
+    <td class="alert-info">*Servicing Released*</td>
   </tr>
 </table>
 
-</container>
+</div>
 
 <script type="text/javascript">
   document.addEventListener('DOMContentLoaded', function(){

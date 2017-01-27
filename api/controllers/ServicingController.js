@@ -32,6 +32,18 @@ module.exports = {
       return res.view('reports/servicingStatements', {loans, moment, numeral});
     })
 
+  },
+  collected: function(req, res){
+    var numeral = require('numeral');
+    var moment = require('moment');
+    Loan.find({
+      fundedDate: { '!': null},
+      paymentsCollected: { '>' : 0 }
+    }).exec(function(err, loans){
+      if(err) res.serverError(err);
+      return res.view('reports/servicingCollected', {loans, moment, numeral});
+    });
+
   }
 
 }
