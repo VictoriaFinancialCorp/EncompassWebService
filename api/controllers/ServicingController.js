@@ -22,7 +22,7 @@ module.exports = {
   statements: function(req, res){
     var numeral = require('numeral');
     var moment = require('moment');
-    var range = moment().subtract(30, 'days').calendar()
+    var range = moment().subtract(90, 'days').calendar()
     Loan.find({
       fundedDate: { '!': null},
       mortgageStatementLastPrinted: null,
