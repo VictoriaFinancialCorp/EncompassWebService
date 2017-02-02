@@ -44,6 +44,11 @@ module.exports.routes = {
   '/servicing-collect': 'ServicingController.collect',
   '/servicing-statements': 'ServicingController.statements',
   '/servicing-collected': 'ServicingController.collected',
+  '/mers-home': 'MersController.home',
+  'get /mers-generate': 'MersController.home',
+  'post /mers-generate': 'MersController.generate',
+  'post /mers-save': 'MersController.save',
+  '/mers-list': 'MersController.list',
   '/2016-1098': '1098Controller.1098'
 
   /***************************************************************************

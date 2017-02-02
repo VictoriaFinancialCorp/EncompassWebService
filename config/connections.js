@@ -47,6 +47,13 @@ module.exports.connections = {
     password: '', //optional
     database: 'encompass' //optional
   },
+  mySqlMERS: {
+    adapter: 'sails-mysql',
+    host: 'localhost',
+    user: 'root', //optional
+    password: '', //optional
+    database: 'mers' //optional
+  },
 
   /***************************************************************************
   *                                                                          *

@@ -1,0 +1,94 @@
+<div class="container col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6">
+  <h2>MERs Generator</h2>
+  <ul style="display:none;">MERs Org ID
+    <li>1010116 - Victoria Financial Corp.</li>
+    <li>1012632 - DiTech</li>
+    <li>1006569 - DiTech</li>
+    <li>1000525 - Flagstar FSB</li>
+    <li>1004117 - Florida</li>
+    <li>1008090 - Green Tree</li>
+    <li>1003972 - Nationstar</li>
+    <li>1008577 - Stonegate</li>
+    <li>1000212 - US Bank</li>
+    <li>1000324 - UWM</li>
+    <li>1003693 - Parkside</li>
+    <li>1008597 - IMPAC</li>
+    <li>1008209 - Caliber</li>
+  </ul>
+  <hr/>
+  <ul style="display:none;">Interm Funders
+    <li>1000712 - Banc of Cal </li>
+    <li>1000525 - Flagstar </li>
+    <li>1004117 - Florida </li>
+    <li>1012829 - Natty Mac </li>
+  </ul>
+
+  <form action="mers-generate" method="post" class="form-horizontal">
+
+    <div class="form-group">
+      <label class="col-sm-3 control-label">Org ID</label>
+      <div class="col-sm-9">
+        <select class="form-control" name="orgID">
+          <option value="1010116">1010116 - Victoria Financial Corp.</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-3 control-label">Loan Number</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" name="loan_num" required/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label">Borrower's Name</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" name="b_name" required/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label">Processed By</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" name="processor" placeholder="<% session.me %>" required/>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-info pull-right">Generate</button>
+  </form>
+</div>
+
+<% if(typeof output != 'undefined'){ %>
+<div class="container col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6">
+  <form action="mers-save" method="post" class="form-horizontal">
+    <div class="form-group">
+      <label class="col-sm-3 control-label">Org ID</label>
+      <div class="col-sm-9">
+        <input type="hidden" class="form-control" name="org_id" value="<%= output.orgID %>"/>
+        <%= output.orgID %>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label">Loan Number</label>
+      <div class="col-sm-9">
+        <input type="hidden" name="loan_num" value="<%= output.loanNum %>"/>
+        <%= output.loanNum %>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label">Borrower's Name</label>
+      <div class="col-sm-9">
+        <input type="hidden" name="b_name" value="<%= b_name %>"/>
+        <%= b_name %>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label">Processed By</label>
+      <div class="col-sm-9">
+        <input type="hidden" name="processor" value="<%= processor %>"/>
+        <%= processor %>
+      </div>
+    </div>
+    <input type="hidden" name="min_num" value="<%= output.min %>" />
+    <button type="submit" class="btn btn-info pull-right">Add to Database</button>
+  </form>
+</div>
+<% } %>

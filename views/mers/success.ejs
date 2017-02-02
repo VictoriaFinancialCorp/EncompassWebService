@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="alert alert-success" role="alert">MIN successfully added</div>
+
+  <table class="table">
+    <tr>
+      <th>Org ID:</th>
+      <td><%= loan.org_id %></td>
+    </tr>
+    <tr>
+      <th>Loan Number:</th>
+      <td><%= loan.loan_num %></td>
+    </tr>
+    <tr>
+      <th>Borrower:</th>
+      <td><%= loan.b_name %></td>
+    </tr>
+    <tr>
+      <th>MIN:</th>
+      <td><%= loan.min_num %></td>
+    </tr>
+    <tr>
+      <th>Processed By:</th>
+      <td><%= loan.processed_by %></td>
+    </tr>
+  </table>
+  <a class="btn btn-primary" href="mers-home" role="button">Create New MIN</a>
+  <a class="btn btn-default" href="/" role="button">Return Home</a>
+  <a class="btn btn-default" href="mers-list" role="button">MIN Report</a>
+</div>
