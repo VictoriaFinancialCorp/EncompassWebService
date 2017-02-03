@@ -6,9 +6,9 @@
  */
 
 module.exports = {
-  tableName:'mers',
+  tableName:'mers2',
   connection: 'mySqlMERS',
-  migrate: 'alter',
+  migrate: 'safe',
   attributes: {
     id:{
       type: 'integer',
