@@ -34,6 +34,9 @@ module.exports.policies = {
     'list': 'sessionAuth',
     'save': 'sessionAuth'
   },
+  UserController: {
+    'addUser' :'isAdmin'
+  }
 
   /***************************************************************************
   *                                                                          *

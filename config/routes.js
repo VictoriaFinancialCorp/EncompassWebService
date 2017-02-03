@@ -39,6 +39,7 @@ module.exports.routes = {
   'post /login' : 'UserController.login',
   '/logout' : 'UserController.logout',
   '/forgotPassword': {view: 'user/forgotPassword'},
+  '/addUser' : 'UserController.addUser',
   '/emailPass': 'UserController.emailPassword',
   '/changePass' : 'UserController.changePass',
 

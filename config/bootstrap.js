@@ -58,6 +58,7 @@ module.exports.bootstrap = function(cb) {
 	      f_name:'admin',
 	      l_name:'',
 	      active: true,
+				admin: true,
 	      temp_pw: false
 	    }).exec(function(err, user){
 	      if (err) sails.log.error(err);
