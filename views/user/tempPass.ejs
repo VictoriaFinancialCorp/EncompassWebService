@@ -1,0 +1,14 @@
+
+<div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
+  <h2>Temp Password</h2>
+
+  <%- partial('../error.ejs') %>
+
+  <% if(typeof temp_pw != 'undefined'){ %>
+    <p>Tempoary password is: <%= temp_pw %></p>
+  <% } %>
+  <p>Please change it at the next login.</p>
+
+  <p><a href="/" class="btn btn-default" />Home</a></p>
+
+</div>

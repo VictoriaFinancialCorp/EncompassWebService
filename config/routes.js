@@ -38,6 +38,9 @@ module.exports.routes = {
   'get /login' : { view: 'user/login'},
   'post /login' : 'UserController.login',
   '/logout' : 'UserController.logout',
+  '/forgotPassword': {view: 'user/forgotPassword'},
+  '/emailPass': 'UserController.emailPassword',
+  '/changePass' : 'UserController.changePass',
 
   '/fundedLoans' : 'LoanController.fundedLoans',
   '/LoansNotPurchased' : 'LoanController.LoansNotPurchased',

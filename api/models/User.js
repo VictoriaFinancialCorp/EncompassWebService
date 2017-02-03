@@ -11,7 +11,7 @@ module.exports = {
   migrate: 'safe',
   attributes: {
     id:{
-      type:'int',
+      type:'integer',
       primaryKey:true,
       autoIncrement:true
     },

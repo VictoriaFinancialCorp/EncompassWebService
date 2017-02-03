@@ -283,8 +283,22 @@ module.exports = {
 
 		else if(req.method == 'POST'){
 			var bcrypt = require('bcrypt-nodejs');
+			User.update(
+				{email:req.param('email')},
+				{
+					temp_pw : false,
+					password : bcrypt.hashSync(req.param('password'))
+				}
+			).exec(function(err, user){
+				if(err) return res.serverError(err);
+				sails.log.info("[UserController.changePass]: successful for: " + user[0].login)
+				return res.view('user/login', {
+					message:'Password changed successfully',
+					status:'success'
+				});
+			})
 
-			User.findOne({
+			/*User.findOne({
 				id:req.param('id')
 			}).exec(function(err, user){
 				if(err) return res.err(err);
@@ -300,7 +314,7 @@ module.exports = {
 						status:'success'
 					});
 				});
-			});
+			});*/
 		}
 
 	},
@@ -339,15 +353,44 @@ module.exports = {
 		var bcrypt = require('bcrypt-nodejs');
 		var temp_pw = Math.random().toString(36).slice(2);
 
-		User.findOne({
+		User.update(
+			{email: req.param('email')},
+			{
+				temp_pw : true,
+				password : bcrypt.hashSync(temp_pw)
+			}
+		).exec(function(err, user){
+			if (err) return res.serverError(err)
+			sails.log.info("[UserController.emailPassword]: successful for: " + user[0].login)
+
+			EmailService.sendEmail({
+				to: user[0].email,
+				subject:'[Password Reset]',
+				text:'Your login password has been reset. \r\n\r\n Temp password: ' + temp_pw
+			}, function(err){
+				if(err) return res.serverError(err);
+				return res.view('user/tempPass', {
+					message:'Temp password has been emailed to: ' + user[0].email ,
+					status:'success'
+				});
+			});
+
+		});
+
+
+		/*User.findOne({
 			email: req.param('email')
 		}).exec(function(err, user){
-			if(err) return res.err(err);
+
+			if(err) return res.serverError(err);
+
 			user.temp_pw = true;
 			user.password = bcrypt.hashSync(temp_pw);
 
+
+
 			user.save(function(err){
-				if(err) return res.err(err);
+				if(err) return res.serverError(err);
 
 				sails.log.info("[UserController.emailPassword]: successful for: " + user.login)
 
@@ -363,7 +406,7 @@ module.exports = {
 					});
 				});
 			});
-		})
+		})*/
 	}
 
 };
