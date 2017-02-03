@@ -33,22 +33,31 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': { view: 'reports/main' },
+  '/reports' : { view: 'reports/main' },
+
+  'get /login' : { view: 'user/login'},
+  'post /login' : 'UserController.login',
+  '/logout' : 'UserController.logout',
+
   '/fundedLoans' : 'LoanController.fundedLoans',
   '/LoansNotPurchased' : 'LoanController.LoansNotPurchased',
   '/FundedWOInvestorLock' : 'LoanController.FundedWOInvestorLock',
   '/CTCNotFunded' : 'LoanController.CTCNotFunded',
   '/ProcessorActive' : 'LoanController.ProcessorActive',
-  '/reports' : { view: 'reports/main' },
-  '/logs' : 'LogController.viewLogs',
   '/docsDrawn' : 'LoanController.docsDrawn',
+
+  '/logs' : 'LogController.viewLogs',
+
   '/servicing-collect': 'ServicingController.collect',
   '/servicing-statements': 'ServicingController.statements',
   '/servicing-collected': 'ServicingController.collected',
+
   '/mers-home': 'MersController.home',
   'get /mers-generate': 'MersController.home',
   'post /mers-generate': 'MersController.generate',
   'post /mers-save': 'MersController.save',
   '/mers-list': 'MersController.list',
+
   '/2016-1098': '1098Controller.1098'
 
   /***************************************************************************

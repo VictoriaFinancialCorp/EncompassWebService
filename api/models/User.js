@@ -6,28 +6,48 @@
  */
 
 module.exports = {
-  tableName:'users',
+  tableName: "users",
+  connection: 'mongodbUserServer',
+  migrate: 'safe',
   attributes: {
-    id: {
-      type: 'int',
-      primaryKey: true,
-      autoIncrement: true
+    id:{
+      type:'int',
+      primaryKey:true,
+      autoIncrement:true
     },
     login:{
       type: 'string',
-      required: true,
-      unique: true
-    },
-    password:{
-      type: 'string',
+      unique: true,
       required: true
     },
-    email:{
+    password:{
+      type: 'string'
+    },
+    f_name: {
+      type: 'string'
+    },
+    l_name: {
+      type: 'string'
+    },
+    email: {
       type: 'string',
-      required: true,
       unique: true
+    },
+    active: {
+      type: 'boolean',
+      defaultsTo: false
+    },
+    temp_pw:{
+      type:'boolean',
+      defaultsTo: true
+    },
+    admin:{
+      type:'boolean',
+      defaultsTo:false
+    },
+    isAdmin: function(){
+      return this.admin;
     }
-
 
   }
 };

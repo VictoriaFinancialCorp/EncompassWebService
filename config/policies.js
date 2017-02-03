@@ -26,7 +26,14 @@ module.exports.policies = {
   *                                                                          *
   ***************************************************************************/
 
-  // '*': true,
+  '*': true,
+  MersController: {
+    '*': false,
+    'home': 'sessionAuth',
+    'generate': 'sessionAuth',
+    'list': 'sessionAuth',
+    'save': 'sessionAuth'
+  },
 
   /***************************************************************************
   *                                                                          *

@@ -45,6 +45,28 @@ module.exports.bootstrap = function(cb) {
   // });
 
 
+	var bcrypt = require('bcrypt-nodejs');
+  User.find({
+		login:'admin'
+	}).exec(function(err, user){
+		if (err) sails.log.error(err);
+		if (user.length == 0){ //if admin doesn't exist, create and add roles
+			User.create({
+	      login:'admin',
+	      email:'admin@localhost',
+	      password:bcrypt.hashSync("admin"),
+	      f_name:'admin',
+	      l_name:'',
+	      active: true,
+	      temp_pw: false
+	    }).exec(function(err, user){
+	      if (err) sails.log.error(err);
+        else sails.log.info("default admin login created");
+
+	    });
+		}
+  });
+
   // It's very important to trigger this callback method when you are finished
   // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
   cb();
