@@ -49,7 +49,8 @@
     <div class="form-group">
       <label class="col-sm-3 control-label">Processed By</label>
       <div class="col-sm-9">
-        <input type="text" class="form-control" name="processor" value="<%= req.session.name %>" required/>
+        <input type="hidden" class="form-control" name="processor" value="<%= req.session.name %>" required/>
+        <p class="form-control"><%= req.session.name %></p>
       </div>
     </div>
     <button type="submit" class="btn btn-info pull-right">Generate</button>

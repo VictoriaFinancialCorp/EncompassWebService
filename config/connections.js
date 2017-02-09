@@ -52,7 +52,7 @@ module.exports.connections = {
     host: 'localhost',
     user: 'root', //optional
     password: '', //optional
-    database: 'mers' //optional
+    database: 'mers2' //optional
   },
 
   /***************************************************************************

@@ -61,6 +61,7 @@ module.exports.routes = {
   'post /mers-generate': 'MersController.generate',
   'post /mers-save': 'MersController.save',
   '/mers-list': 'MersController.list',
+  '/mers-search': 'MersController.search',
 
   '/2016-1098': '1098Controller.1098'
 

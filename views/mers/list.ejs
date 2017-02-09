@@ -2,49 +2,85 @@
 <div class="container">
   <h1>MERS MIN</h1>
 
+  <div class="col-xs-4 col-sm-2" style="padding:0;margin-bottom:1em;">
 
-  <table id="table" class="table table-hover table-condensed">
-    <thead>
-      <tr>
-        <th>Org ID</th>
-        <th>Loan Number</th>
-        <th>MIN</th>
-        <th>Borrower Name</th>
-        <th>Processed By</th>
-        <th>Created</th>
+    <select name="filter" onChange="range(this.value)" class="form-control input-sm" id="filter">
+      <option value="Recent">Recent</option>
+      <!-- <option value="2017">2017</option>
+      <option value="2016">2016</option>
+      <option value="2015">2015</option>
+      <option value="2014">2014</option> -->
+    </select>
 
-      </tr>
-    </thead>
+  </div>
 
-    <tbody>
-      <% loans.forEach(function(loan) { %>
+  <!-- <form action="" method="post" onchange="submit(this)">
+    <input type="text" name="search" value=""/>
+  </form> -->
+
+  <div style="clear:both;">
+    <table id="table" class="table table-hover input-sm">
+      <thead>
         <tr>
-          <td><%= loan.org_id %></td>
-          <td><%= loan.loan_num %></td>
-          <td><%= loan.min_num %></td>
-          <td><%= loan.b_name %></td>
-          <td><%= loan.processed_by %></td>
-          <td><%= moment(loan.createdAt).format('MM/DD/YY  HH:mm:ss') %></td>
+          <th>Org ID</th>
+          <th>Loan Number</th>
+          <th>MIN</th>
+          <th>Borrower Name</th>
+          <th>Processed By</th>
+          <th>Created</th>
+
         </tr>
-
-      <% }); %>
-
-    </tbody>
+      </thead>
 
 
-  </table>
+    </table>
+  </div>
 </div>
 
 <script>
+  var table;
   document.addEventListener('DOMContentLoaded', function(){
-    $("#table").DataTable({
-       "pageLength": 10
+
+    table = $("#table").DataTable({
+       "paging":true,
+       "pageLength": 10,
+       "ajax": {
+         "url": 'mers-search?range=Recent',
+         "dataSrc": ""
+       },
+       "columns":[
+         {"data":"org_id"},
+         {"data":"loan_num"},
+         {"data":"min_num"},
+         {"data":"b_name"},
+         {"data":"processed_by"},
+         {"data":"createdAt"}
+       ]
     });
+
   }, false);
-  <%
-  function formatDate(date){
-    if(date == null) return " ";
-    return moment(date).format('MM/DD/YY');
+
+  // append dropdown options by year
+  var select = document.getElementById("filter");
+  var today = new Date();
+  var year = today.getFullYear();
+
+  while(year > 2013){
+    var option = document.createElement('option');
+    option.text = option.value = year;
+    select.add(option);
+    year--;
   }
-  %>
+
+  function range(r){
+    table.ajax.url('mers-search?range='+r).load();
+  }
+
+
+  // <%
+  // function formatDate(date){
+  //   if(date == null) return " ";
+  //   return moment(date).format('MM/DD/YY');
+  // }
+  // %>
 </script>

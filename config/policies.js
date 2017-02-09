@@ -31,8 +31,9 @@ module.exports.policies = {
     '*': false,
     'home': 'sessionAuth',
     'generate': 'sessionAuth',
-    'list': 'sessionAuth',
-    'save': 'sessionAuth'
+    'list': true,
+    'save': 'sessionAuth',
+    'search':true
   },
   UserController: {
     'addUser' :'isAdmin'
