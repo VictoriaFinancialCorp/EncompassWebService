@@ -117,7 +117,7 @@ module.exports = {
 			if (err) {
 				sails.log(err);
 				return res.view('user/addUser',{
-					message: err,
+					message: "error",
 					status: 'error'
 				});
 			} else {
