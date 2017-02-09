@@ -18,9 +18,13 @@ module.exports = {
     var b_name = req.param('b_name');
 
 
+    try{
+      var output = mers.generate(orgID, loanNum);
+    } catch (err){
+      return res.view('mers/main', {loan_num:loanNum, b_name, status:"error", message:"invalid input" + err});
+    }
 
-    var output = mers.generate(orgID, loanNum);
-    if (output == null) return res.serverError({err:"invalid input"});
+    //if (output == null) return res.view({err:"invalid input"});
 
     Mers.find({
       min_num: output.min
@@ -29,7 +33,7 @@ module.exports = {
         return res.serverError({err});
       }
       else if(loans.length > 0) {
-        return res.serverError({err:"min exists"});
+        return res.view('mers/main', {loan_num:loanNum, b_name, status:"error", message:"MIN already exists"});
       }
       else {
         return res.view('mers/main', {output, processor, b_name});
@@ -108,7 +112,14 @@ module.exports = {
       b_name: req.param('b_name'),
       processed_by: req.param('processor')
     }).exec(function(err, loan){
-      if (err) { res.serverError(err);}
+      if (err) {
+        res.view('mers/main', {
+          message: err,
+          status:"error",
+          loan_num: req.param('loan_num'),
+          b_name:req.param('b_name')
+        })
+      }
       else {return res.view('mers/success', {loan});}
     });
   }
