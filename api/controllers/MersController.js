@@ -113,6 +113,7 @@ module.exports = {
       processed_by: req.param('processor')
     }).exec(function(err, loan){
       if (err) {
+        console.log(err)
         res.view('mers/main', {
           message: err,
           status:"error",

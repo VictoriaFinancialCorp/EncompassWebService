@@ -16,11 +16,11 @@ module.exports = {
       autoIncrement: true
     },
     org_id:{
-      type:'integer',
+      type:'string',
       required: true
     },
     loan_num:{
-      type:'bigint',
+      type:'string',
       required: true
     },
     min_num: {
