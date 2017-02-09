@@ -20,7 +20,7 @@ module.exports = {
       required: true
     },
     loan_num:{
-      type:'integer',
+      type:'bigint',
       required: true
     },
     min_num: {

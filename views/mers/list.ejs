@@ -44,6 +44,7 @@
     table = $("#table").DataTable({
        "paging":true,
        "pageLength": 10,
+       "order": [5,'desc'],
        "ajax": {
          "url": 'mers-search?range=Recent',
          "dataSrc": ""
@@ -54,8 +55,9 @@
          {"data":"min_num"},
          {"data":"b_name"},
          {"data":"processed_by"},
-         {"data":"createdAt"}
+         {"data":"createdAt"},
        ]
+
     });
 
   }, false);
