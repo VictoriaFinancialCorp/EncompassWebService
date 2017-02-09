@@ -36,6 +36,11 @@ module.exports.policies = {
     'search':true
   },
   UserController: {
+    'login': true,
+    'logout':'sessionAuth',
+    'changePass':true,
+    'passwordReset':true,
+    'emailPassword':true,
     'addUser' :'isAdmin'
   }
 
