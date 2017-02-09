@@ -63,6 +63,7 @@ module.exports.routes = {
   'post /mers-save': 'MersController.save',
   '/mers-list': 'MersController.list',
   '/mers-search': 'MersController.search',
+  '/mers-full-search': 'MersController.fullSearch',
 
   '/2016-1098': '1098Controller.1098'
 

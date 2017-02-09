@@ -33,7 +33,8 @@ module.exports.policies = {
     'generate': 'sessionAuth',
     'list': true,
     'save': 'sessionAuth',
-    'search':true
+    'search':true,
+    'fullSearch': 'sessionAuth'
   },
   UserController: {
     'login': true,

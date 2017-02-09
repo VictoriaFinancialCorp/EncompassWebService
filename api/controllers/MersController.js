@@ -85,7 +85,6 @@ module.exports = {
       end = null;
     }
     var search = (typeof req.param('search') == 'undefined') ? '' : req.param('search') ;
-    var page = (typeof req.param('page') == 'undefined') ? '' : req.param('page') ;
     Mers.find({
       "or":[{
         id: {"contains": search},
@@ -99,6 +98,28 @@ module.exports = {
           '<=':  end,
         }
       }]
+    }).exec(function(err, loans) {
+      if (err) res.json(err);
+      return res.json(loans)
+    });
+  },
+  fullSearch:function(req, res){
+    var moment = require('moment');
+
+    if(typeof req.param('search') == 'undefined' || req.param('search') == '') {
+      return res.json({});
+    }
+    var search =  req.param('search');
+    Mers.find({
+      limit: 500,
+      "or":[
+        {id: {"contains": search}},
+        {org_id: {"contains": search}},
+        {loan_num: {"contains": search}},
+        {min_num: {"contains": search}},
+        {b_name: {"contains": search}},
+        {processed_by: {"contains": search}},
+      ]
     }).exec(function(err, loans) {
       if (err) res.json(err);
       return res.json(loans)

@@ -2,23 +2,25 @@
 <div class="container">
   <h1>MERS MIN</h1>
 
-  <div class="col-xs-4 col-sm-2" style="padding:0;margin-bottom:1em;">
+  <div class="row">
+    <div class="col-xs-4 col-sm-2" style="padding:0;margin-bottom:1em;">
 
-    <select name="filter" onChange="range(this.value)" class="form-control input-sm" id="filter">
-      <option value="Recent">Recent</option>
-      <!-- <option value="2017">2017</option>
-      <option value="2016">2016</option>
-      <option value="2015">2015</option>
-      <option value="2014">2014</option> -->
-    </select>
+      <select name="filter" onChange="range(this.value)" class="form-control input-sm" id="filter">
+        <option value="Recent">Recent</option>
+        <!-- <option value="2017">2017</option>
+        <option value="2016">2016</option>
+        <option value="2015">2015</option>
+        <option value="2014">2014</option> -->
+      </select>
 
+    </div>
   </div>
 
   <!-- <form action="" method="post" onchange="submit(this)">
     <input type="text" name="search" value=""/>
   </form> -->
 
-  <div style="clear:both;">
+  <div class="row">
     <table id="table" class="table table-hover input-sm">
       <thead>
         <tr>
@@ -35,6 +37,24 @@
 
     </table>
   </div>
+
+  <% if(typeof req.session != 'undefined' && typeof req.session.me != 'undefined') { %> 
+    <div class="row" style="margin-top:2em;">
+      <div class="col-xs-6 pull-right">
+        <!-- <form method="post" action="mers-full-search"> -->
+          <div class="input-group">
+            <input type="text" name="search" class="form-control" placeholder="Full Search...(max 500 results)" id="search">
+            <span class="input-group-btn">
+              <button class="btn btn-secondary" type="button" onClick="fullSearch()">Search</button>
+            </span>
+          </div>
+        <!-- </form> -->
+      </div>
+  <% } %>
+  </div>
+
+
+
 </div>
 
 <script>
@@ -76,6 +96,10 @@
 
   function range(r){
     table.ajax.url('mers-search?range='+r).load();
+  }
+  function fullSearch(){
+    var q = document.getElementById('search');
+    table.ajax.url('mers-full-search?search='+q.value).load();
   }
 
 
