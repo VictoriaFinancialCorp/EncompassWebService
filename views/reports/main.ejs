@@ -81,9 +81,14 @@
         <div class="panel-heading">
           <h3 class="panel-title">Admin Reports</h3>
         </div>
+        <% if(typeof req.session.isAdmin != 'undefined' || req.session.isAdmin == false) { %>
         <div class="list-group">
           <a href="addUser" class="list-group-item">Add User</a>
         </div>
+        <div class="list-group">
+          <a href="listusers" class="list-group-item">List Users</a>
+        </div>
+        <% } %>
         <div class="list-group">
           <a href="logs" class="list-group-item">Logs</a>
         </div>

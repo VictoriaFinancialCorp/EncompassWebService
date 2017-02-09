@@ -41,7 +41,8 @@ module.exports.policies = {
     'changePass':true,
     'passwordReset':true,
     'emailPassword':true,
-    'addUser' :'isAdmin'
+    'addUser' :'isAdmin',
+    'listUsers' :'isAdmin'
   }
 
   /***************************************************************************

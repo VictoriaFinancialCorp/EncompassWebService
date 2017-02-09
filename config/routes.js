@@ -40,6 +40,7 @@ module.exports.routes = {
   '/logout' : 'UserController.logout',
   '/forgotPassword': {view: 'user/forgotPassword'},
   '/addUser' : 'UserController.addUser',
+  '/listUsers' : 'UserController.listUsers',
   '/emailPass': 'UserController.emailPassword',
   '/changePass' : 'UserController.changePass',
 
