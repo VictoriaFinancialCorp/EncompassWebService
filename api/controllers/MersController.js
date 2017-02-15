@@ -40,6 +40,23 @@ module.exports = {
       }
     })
 	},
+  validate: function(req, res){
+    var min_num = req.param('min_num');
+    var mers = require('mers-min');
+    var valid;
+    try{
+      valid = mers.validate(min_num);
+    }catch(err){
+      return res.view('mers/validate', {status:"error", message: err, min_num})
+    }
+
+    if(valid){
+      return res.view('mers/validate', {status:'success', message: "MIN is Valid", min_num})
+    }else{
+      return res.view('mers/validate', {status:'warning', message: "MIN is Invalid", min_num})
+    }
+
+  },
   list: function(req, res){
     var moment = require('moment');
     return res.view('mers/list', { moment});

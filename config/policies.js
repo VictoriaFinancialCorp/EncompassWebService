@@ -34,7 +34,8 @@ module.exports.policies = {
     'list': true,
     'save': 'sessionAuth',
     'search':true,
-    'fullSearch': 'sessionAuth'
+    'fullSearch': 'sessionAuth',
+    'validate': true
   },
   UserController: {
     'login': true,
