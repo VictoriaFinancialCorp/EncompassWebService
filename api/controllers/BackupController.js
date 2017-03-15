@@ -15,7 +15,7 @@ module.exports = {
 function mySqlBackup(db, login, pw){
 	var moment = require('moment');
 	const exec = require('child_process').exec;
-	var mysqldump = sails.config.connections.mySql.mysqldump;
+	var mysqldump = sails.config.connections.mySql.path + "mysqldump.exe";
 	var fileName =  db + "_bk" + moment().format('YYYYMMDD-HHmmss') + '.sql';
 	var query = mysqldump + ' -u '+ login + ' -p ' + pw + ' ' + db + ' > backup\\' + fileName ;
 	//console.log(query);
@@ -27,4 +27,5 @@ function mySqlBackup(db, login, pw){
 	  console.log(`stdout: ${stdout}`);
 	  console.log(`stderr: ${stderr}`);
 	});
+	console.log('[Backup]: completed')
 }
