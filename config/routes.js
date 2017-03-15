@@ -67,6 +67,9 @@ module.exports.routes = {
   'post /mers-validate': 'MersController.validate',
   '/mers-full-search': 'MersController.fullSearch',
 
+  //API for backups
+  '/backup/:action': 'BackupController.backup',
+
   '/2016-1098': '1098Controller.1098'
 
   /***************************************************************************

@@ -45,6 +45,9 @@ module.exports.policies = {
     'emailPassword':true,
     'addUser' :'isAdmin',
     'listUsers' :'isAdmin'
+  },
+  BackupController: {
+    '*': 'isAdmin',
   }
 
   /***************************************************************************
