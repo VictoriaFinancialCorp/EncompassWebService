@@ -21,6 +21,9 @@
 
   <tbody>
     <% loans.forEach( function(loan) { %>
+      <% if(loan.firstPaymentDateInvestor == null){
+        loan.firstPaymentDateInvestor = moment().add(1, 'months').format('MM/01/YY');
+      }%>
 
       <% var duration = moment.duration(moment(loan.firstPaymentDateInvestor).diff(moment(loan.firstPaymentDate))); %>
       <% var expectedPayments = Math.round(duration.asMonths());  %>
@@ -31,8 +34,9 @@
            else if(loan.servicingStatus == ' Servicing Released' ) { %> class='alert-info' <% } %>
           >
           <td><%= loan.servicingStatus %></td>
-          <td><%= moment(loan.firstPaymentDate).format('MM/DD') %></td>
-          <td><%= moment(loan.firstPaymentDateInvestor).format('MM/DD') %></td>
+          <td><%= moment(loan.firstPaymentDate).format('MM/DD/YY') %></td>
+
+          <td><%= moment(loan.firstPaymentDateInvestor).format('MM/DD/YY') %></td>
           <td><%= moment(loan.mortgageStatementLastPrinted).format('MM/DD/YY') %></td>
           <td><%= loan.paymentsCollected %></td>
           <td><%= expectedPayments%></td>

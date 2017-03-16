@@ -23,6 +23,9 @@
   <tbody>
     <% loans.forEach( function(loan) { %>
 
+      <% if(loan.firstPaymentDateInvestor == null){
+        loan.firstPaymentDateInvestor = moment().add(1, 'months').format('MM/01/YY');
+      }%>
       <% var expectedPayments = moment(loan.firstPaymentDateInvestor).format('MM') - moment(loan.firstPaymentDate).format('MM') %>
 
       <% if(expectedPayments !=0){ %>
@@ -31,12 +34,12 @@
            else if( moment().add(15, 'days') >  moment(loan.firstPaymentDate) ) { %> class='alert-warning' <% } %>
           >
           <td><%= loan.servicingStatus %></td>
-          <td><%= moment(loan.firstPaymentDate).format('MM/DD') %></td>
-          <td><%= moment(loan.firstPaymentDateInvestor).format('MM/DD') %></td>
+          <td><%= moment(loan.firstPaymentDate).format('MM/DD/YY') %></td>
+          <td><%= moment(loan.firstPaymentDateInvestor).format('MM/DD/YY') %></td>
           <!-- <td><%= moment(loan.mortgageStatementLastPrinted).format('MM/DD') %></td> -->
           <td><%= loan.paymentsCollected %></td>
           <td><%= expectedPayments%></td>
-          <td><%= moment(loan.purchasedDate).format('MM/DD') %></td>
+          <td><%= (loan.purchasedDate==null) ? "N/A" : moment(loan.purchasedDate).format('MM/DD') %></td>
           <td><%= loan.investor %></td>
           <td><%= loan.investorNum %></td>
           <td><%= loan.loanNum %></td>
