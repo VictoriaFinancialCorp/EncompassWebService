@@ -6,7 +6,7 @@
  */
 
 module.exports = {
-	viewLogs: function(req, res){
+	show: function(req, res){
 		Log.find({
 			limit:50,
 			sort:'createdAt DESC'
