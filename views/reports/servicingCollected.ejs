@@ -22,7 +22,7 @@
   <tbody>
     <% loans.forEach( function(loan) { %>
       <% if(loan.firstPaymentDateInvestor == null){
-        loan.firstPaymentDateInvestor = moment().add(1, 'months').format('MM/01/YY');
+        loan.firstPaymentDateInvestor = moment().add(1, 'months').set('date', 1);
       }%>
 
       <% var duration = moment.duration(moment(loan.firstPaymentDateInvestor).diff(moment(loan.firstPaymentDate))); %>
