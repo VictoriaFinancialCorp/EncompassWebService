@@ -51,7 +51,8 @@ module.exports.routes = {
   '/ProcessorActive' : 'LoanController.ProcessorActive',
   '/docsDrawn' : 'LoanController.docsDrawn',
 
-  '/logs' : 'LogController.viewLogs',
+  '/logs' : 'LogController.show',
+  '/logs/show' : 'LogController.show',
 
   '/servicing-collect': 'ServicingController.collect',
   '/servicing-statements': 'ServicingController.statements',

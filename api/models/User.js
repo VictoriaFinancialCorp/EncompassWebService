@@ -44,10 +44,9 @@ module.exports = {
     admin:{
       type:'boolean',
       defaultsTo:false
-    },
-    isAdmin: function(){
-      return this.admin;
     }
-
+  },
+  isAdmin: function(){
+    return this.admin;
   }
 };
