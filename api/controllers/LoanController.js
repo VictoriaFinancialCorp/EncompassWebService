@@ -101,6 +101,20 @@ module.exports = {
 			if (err) return res.serverError(err);
 			return res.view('reports/docsDrawn', {loans, moment, numeral});
 		});
+	},
+	lockedFiles: function(req, res){
+		var numeral = require('numeral');
+		var moment = require('moment');
+		var dateFrom = (req.param('dateFrom') != null) ? req.param('dateFrom') : moment().format('MM/DD/YYYY');
+		var dateTo = (req.param('dateTo') != null) ? req.param('dateTo') : moment().format('MM/DD/YYYY');
+		//var tempDate = moment('2/1/2017').format('MM/DD/YYYY');
+		Loan.find({
+			investorLockDate: {'>=' : dateFrom, '<=' : dateTo }
+		}).exec(function(err, loans){
+			if (err) return res.serverError(err);
+			return res.view("reports/lockedFiles", {loans, moment, numeral, dateFrom, dateTo});
+
+		})
 	}
 
 };

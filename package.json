@@ -39,7 +39,7 @@
   },
   "scripts": {
     "debug": "node debug app.js",
-    "start": "nodemon app.js"
+    "start": "nodemon ./node_modules/sails/bin/sails.js lift app.js"
   },
   "main": "app.js",
   "repository": {

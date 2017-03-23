@@ -47,7 +47,10 @@ module.exports.policies = {
     'listUsers' :'isAdmin'
   },
   BackupController: {
-    '*': 'isAdmin',
+    '*':'isAdmin',
+  },
+  LoanController:{
+    '*':true
   }
 
   /***************************************************************************

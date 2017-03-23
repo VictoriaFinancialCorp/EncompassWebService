@@ -50,6 +50,7 @@ module.exports.routes = {
   '/CTCNotFunded' : 'LoanController.CTCNotFunded',
   '/ProcessorActive' : 'LoanController.ProcessorActive',
   '/docsDrawn' : 'LoanController.docsDrawn',
+  '/LockedFiles' : 'LoanController.lockedFiles',
 
   '/logs' : 'LogController.show',
   '/logs/show' : 'LogController.show',
@@ -67,6 +68,7 @@ module.exports.routes = {
   'get /mers-validate': {view: 'mers/validate'},
   'post /mers-validate': 'MersController.validate',
   '/mers-full-search': 'MersController.fullSearch',
+
 
   //API for backups
   '/backup/:action': 'BackupController.backup',

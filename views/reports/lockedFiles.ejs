@@ -1,0 +1,96 @@
+<div class="container">
+<h1>Locked Files</h1>
+
+  <div class="container">
+      <div class="row" >
+        <form method="get" >
+          <table class="table">
+
+            <tr>
+              <td>
+                <span class="input-group date" data-provide="datepicker" class="datepicker">
+                  <label class="input-group-addon" >From: </label>
+                  <input type="text" class="form-control" name="dateFrom" value="<%= dateFrom %>"/>
+                  <div class="input-group-addon">
+                      <span class="glyphicon glyphicon-calendar"></span>
+                  </div>
+                </span>
+              </td>
+              <td>
+                <span class="input-group date" data-provide="datepicker" class="datepicker">
+                  <label class="input-group-addon" >To: </label>
+                  <input type="text" class="form-control" name="dateTo" value="<%= dateTo %>"/>
+                  <div class="input-group-addon">
+                      <span class="glyphicon glyphicon-calendar"></span>
+                  </div>
+                </span>
+              </td>
+              <td>
+                <button class="btn btn-default" type="submit">Show</button>
+              </td>
+            </tr>
+
+          </table>
+        </form>
+      </div>
+  </div>
+</div>
+
+
+<table id="table" class="table table-hover table-condensed">
+  <thead>
+    <tr>
+      <th>Investor</th>
+      <th>Investor #</th>
+      <th>Loan #</th>
+      <th>Borrower Name</th>
+      <th class="text-center">Loan Amount</th>
+      <th>Inv. Lock Date</th>
+      <th>Lock Exp</th>
+      <th>Lock Type</th>
+      <th>Rebate</th>
+      <th>Processor</th>
+      <th>Loan Officer</th>
+      <th class="text-center">Funded Date</th>
+    </tr>
+  </thead>
+
+
+  <tbody>
+    <% loans.forEach(function(loan) { %>
+
+    <tr>
+      <td><%= loan.investor %></td>
+      <td><%= loan.investorNum %></td>
+      <td><%= loan.loanNum %></td>
+      <td><%= loan.b1_lname + ", " + loan.b1_fname %></td>
+      <td class="text-center"><%= numeral(loan.loanAmt).format('$0,0.00') %></td>
+      <td><%= (loan.investorLockDate) ? moment(loan.investorLockDate).format('MM/DD/YY') : '' %></td>
+      <td><%= (loan.investorLockExpDate) ? moment(loan.investorLockExpDate).format('MM/DD/YY') : '' %></td>
+      <td><%= loan.investorLockType %></td>
+      <td><%= numeral(loan.rebate).add(loan.totalAdj).add(loan.netYSP).add(loan.netSRP).value() %></td>
+      <td><%= loan.processor %></td>
+      <td><%= loan.loanOfficer %></td>
+      <td class="text-center"><%= (loan.fundedDate) ? moment(loan.fundedDate).format('MM/DD/YY') : '' %></td>
+    </tr>
+    <% }); %>
+  </tbody>
+
+
+</table>
+
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function(){
+        $("#table").DataTable({
+           "pageLength": 10,
+           "order": [[ 5, 'asc' ], [ 0, 'asc' ]]
+        });
+  }, false);
+
+  <%
+  function dateToFormattedString(date){
+    if (date == null) return "";
+    return moment(date).format("MM/DD/YYYY")
+  }
+  %>
+</script>

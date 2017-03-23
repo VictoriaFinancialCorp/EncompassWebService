@@ -75,6 +75,10 @@ module.exports = {
       type:'date',
       default:null
     },
+    investorLockType:{
+      type:'string',
+      default: null
+    },
 
     //milestone dates
     startedDate:{
