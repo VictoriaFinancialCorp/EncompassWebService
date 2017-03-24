@@ -11,12 +11,14 @@ module.exports = {
     var to = (typeof options.to == 'undefined') ? '' : options.to;
     var subject = (typeof options.subject == 'undefined') ? '' : options.subject;
     var text = (typeof options.text == 'undefined') ? '' : options.text;
+    var html = (typeof options.html == 'undefined') ? '' : options.html;
 
     var data = {
       from: from,
       to: to,
       subject: subject,
-      text: text
+      text: text,
+      html: html
     };
 
     mailgun.messages().send(data, function (err, body) {
