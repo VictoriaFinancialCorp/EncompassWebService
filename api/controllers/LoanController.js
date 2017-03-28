@@ -127,7 +127,10 @@ module.exports = {
 		Loan.find({
 			investorLockDate: {'>=' : dateFrom, '<=' : dateTo }
 		}, {
-			select: ['investor', 'investorNum', 'loanNum', 'loanAmt', 'investorLockDate', 'investorLockExpDate', 'totalAdj', 'netYSP', 'netSRP', 'fundedDate', 'processor', 'loanOfficer', 'investorLockType', 'b1_fname', 'b1_lname']
+			select: ['investor', 'investorNum', 'loanNum', 'loanAmt',
+			'investorLockDate', 'investorLockExpDate', 'totalAdj',
+			'netYSP', 'netSRP', 'fundedDate', 'processor', 'loanOfficer',
+			'investorLockType', 'b1_fname', 'b1_lname', 'loan_term', 'int_rate']
 		}).sort('investorLockDate DESC').exec(function(err, loans){
 			if (err) return res.serverError(err);
 
@@ -144,6 +147,8 @@ module.exports = {
 				'<th>Loan#</th>' +
 				'<th>Borrower Name</th>' +
 				'<th>Loan Amount</th>' +
+				'<th>Rate</th>' +
+				'<th>Term</th>' +
 				'<th>Inv. Lock Date</th>' +
 				'<th>Inv. Lock Exp</th>' +
 				'<th>Lock Type</th>' +
@@ -159,6 +164,8 @@ module.exports = {
 					`<td>${loan.loanNum}</td>`+
 					`<td>${loan.b1_lname}, ${loan.b1_fname}</td>`+
 					`<td>${numeral(loan.loanAmt).format('$0,0.00')}</td>`+
+					`<td>${numeral(loan.int_rate).format('0,0.000')}</td>`+
+					`<td>${numeral(loan.loan_term).format('0,0')}</td>`+
 					`<td>${moment(loan.investorLockDate).format('MM/DD/YY')}</td>`+
 					`<td>${moment(loan.investorLockExpDate).format('MM/DD/YY')}</td>`+
 					`<td>${loan.investorLockType}</td>`+
