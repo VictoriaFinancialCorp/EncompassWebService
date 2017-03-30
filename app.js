@@ -88,7 +88,7 @@ var j1 = schedule.scheduleJob({
   });
 });
 
-var j2 = schedule.scheduleJob({
+/*var j2 = schedule.scheduleJob({
   hour: 18,
   minute: 30,
   second: 0,
@@ -97,7 +97,7 @@ var j2 = schedule.scheduleJob({
   var emailLockedFiles = require('./api/controllers/LoanController').emailLockedFiles;
   emailLockedFiles(null, null);
   console.log("emailing locked files");
-  });
+});*/
 
 sails.log.info('Task Scheduler Ready in app.js');
 //end scheduler
