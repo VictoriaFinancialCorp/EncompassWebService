@@ -7,6 +7,7 @@
       <th>Servicing Status</th>
       <th>1st Payment Date</th>
       <th>1st Payment Investor</th>
+      <th>Next Payment Date</th>
       <th>Last Printed Statement</th>
       <th>Payments Collected</th>
       <th>Expected Payments</th>
@@ -21,11 +22,9 @@
 
   <tbody>
     <% loans.forEach( function(loan) { %>
-      <% if(loan.firstPaymentDateInvestor == null){
-        loan.firstPaymentDateInvestor = moment().add(1, 'months').set('date', 1);
-      }%>
+      <% var nextPayment = (loan.firstPaymentDateInvestor == null) ? moment().add(1, 'months').set('date', 1) :loan.firstPaymentDateInvestor %>
 
-      <% var duration = moment.duration(moment(loan.firstPaymentDateInvestor).diff(moment(loan.firstPaymentDate))); %>
+      <% var duration = moment.duration(moment(nextPayment).diff(moment(loan.firstPaymentDate))); %>
       <% var expectedPayments = Math.round(duration.asMonths());  %>
 
         <tr <% if(moment() >= moment(loan.firstPaymentDate).add(15, 'days').add(loan.paymentsCollected ,'months')   ) { %> class='alert-danger' <% }
@@ -33,7 +32,8 @@
           >
           <td><%= loan.servicingStatus %></td>
           <td><%= moment(loan.firstPaymentDate).format('MM/DD/YY') %></td>
-          <td><%= moment(loan.firstPaymentDateInvestor).format('MM/DD/YY') %></td>
+          <td><%= (loan.firstPaymentDateInvestor == null) ? "N/A" : moment(loan.firstPaymentDateInvestor).format('MM/DD/YY') %></td>
+          <td><%= moment(nextPayment).format('MM/DD/YY') %></td>
           <td><%= moment(loan.mortgageStatementLastPrinted).format('MM/DD/YY') %></td>
           <td><%= loan.paymentsCollected %></td>
           <td><%= expectedPayments%></td>
@@ -64,7 +64,7 @@
   document.addEventListener('DOMContentLoaded', function(){
         $("#table").DataTable({
            "pageLength": 10,
-           "order": [[3, "desc"]]
+           "order": [[4, "desc"]]
         });
   }, false);
 
