@@ -68,7 +68,14 @@
       <td class="text-center"><%= (loan.investorLockDate) ? moment(loan.investorLockDate).format('MM/DD/YY') : '' %></td>
       <td class="text-center"><%= (loan.investorLockExpDate) ? moment(loan.investorLockExpDate).format('MM/DD/YY') : '' %></td>
       <td class="text-center"><%= loan.investorLockType %></td>
-      <td><%= numeral(loan.netYSP).add(loan.netSRP).value() %></td>
+      <% var rebate = numeral(loan.netYSP).add(100).add(loan.netSRP).value() %>
+      <% if (loan.baseYSP < 50) { %>
+        <%- `<td class='alert alert-warning' style="text-decoration:line-through;">${rebate}</td>` %>
+      <% }else if(rebate < 100 ) { %>
+        <%- `<td class="alert alert-danger">${rebate}</td>` %>
+      <% } else { %>
+        <%- `<td>${rebate}</td>` %>
+      <% }  %>
       <td><%= loan.processor %></td>
       <td><%= loan.loanOfficer %></td>
       <td class="text-center"><%= (loan.fundedDate) ? moment(loan.fundedDate).format('MM/DD/YY') : '' %></td>
@@ -78,6 +85,15 @@
 
 
 </table>
+<div class="container">
+  <table class='table'>
+    <tr class="text-center">
+      <td class="alert-warning">Invalid Format. Needs Revision</td>
+      <td class="alert-danger">Negative Rebate</td>
+    </tr>
+  </table>
+</div>
+
 
 <script type="text/javascript">
   document.addEventListener('DOMContentLoaded', function(){

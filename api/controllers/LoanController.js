@@ -111,7 +111,7 @@ module.exports = {
 		Loan.find({
 			investorLockDate: {'>=' : dateFrom, '<=' : dateTo }
 		}, {
-			select: ['investor', 'investorNum', 'loanNum', 'loanAmt', 'investorLockDate', 'investorLockExpDate', 'totalAdj', 'netYSP', 'netSRP', 'fundedDate', 'processor', 'loanOfficer', 'investorLockType', 'b1_fname', 'b1_lname']
+			select: ['baseYSP', 'investor', 'investorNum', 'loanNum', 'loanAmt', 'investorLockDate', 'investorLockExpDate', 'totalAdj', 'netYSP', 'netSRP', 'fundedDate', 'processor', 'loanOfficer', 'investorLockType', 'b1_fname', 'b1_lname']
 		}).exec(function(err, loans){
 			if (err) return res.serverError(err);
 			return res.view("reports/lockedFiles", {loans, moment, numeral, dateFrom, dateTo});

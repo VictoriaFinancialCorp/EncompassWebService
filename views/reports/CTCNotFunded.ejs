@@ -47,7 +47,7 @@
     <td><%= loans[i].totalAdj.toFixed(3) %></td>
     <td><%= loans[i].netYSP.toFixed(3) %></td>
     <td><%= loans[i].netSRP.toFixed(3) %></td>
-    <td><%= (loans[i].baseYSP + loans[i].totalAdj + loans[i].netYSP + loans[i].netSRP).toFixed(3) %></td>
+    <td><%= (100 + loans[i].netYSP + loans[i].netSRP).toFixed(3) %></td>
 
     <td><%= dateToFormattedString(loans[i].victoriaLockDate) %></td>
     <td><%= dateToFormattedString(loans[i].investorLockDate) %></td>
