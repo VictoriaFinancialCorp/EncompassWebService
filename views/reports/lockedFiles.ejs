@@ -68,7 +68,7 @@
       <td class="text-center"><%= (loan.investorLockDate) ? moment(loan.investorLockDate).format('MM/DD/YY') : '' %></td>
       <td class="text-center"><%= (loan.investorLockExpDate) ? moment(loan.investorLockExpDate).format('MM/DD/YY') : '' %></td>
       <td class="text-center"><%= loan.investorLockType %></td>
-      <td><%= numeral(loan.rebate).add(loan.totalAdj).add(loan.netYSP).add(loan.netSRP).value() %></td>
+      <td><%= numeral(loan.netYSP).add(loan.netSRP).value() %></td>
       <td><%= loan.processor %></td>
       <td><%= loan.loanOfficer %></td>
       <td class="text-center"><%= (loan.fundedDate) ? moment(loan.fundedDate).format('MM/DD/YY') : '' %></td>
