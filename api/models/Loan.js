@@ -227,7 +227,26 @@ module.exports = {
     },
     loanFolder:{
       type:'string'
+    },
+    nextPayment: function(){
+      var moment = require('moment');
+      if(this.fundedDate != null && this.firstPaymentDateInvestor == null) {
+        if(moment.duration(moment().add(1, 'months').set('date', 1).diff(moment() ) ).asDays() > 15 ) {
+          if(moment().set('date', 1) < moment(this.firstPaymentDate)){
+            return this.firstPaymentDate
+          }else{
+            return moment().set('date', 1).format('MM/DD/YY')
+          }
+        }else{
+          return moment().add(1, 'months').set('date', 1).format('MM/DD/YY')
+        }
+      }else if(this.fundedDate != null){
+        return moment(this.firstPaymentDateInvestor).format('MM/DD/YY')
+      }else{ //file not funded
+         return null;
+      }
     }
 
-  }
+  },
+
 };

@@ -22,11 +22,22 @@ module.exports = {
   statements: function(req, res){
     var numeral = require('numeral');
     var moment = require('moment');
-    var range = moment().subtract(90, 'days').calendar()
     Loan.find({
-      fundedDate: { '!': null},
+      fundedDate: { '!': null} ,
+      //fundedDate: {'>=': moment().subtract(90, 'days').calendar() },
       mortgageStatementLastPrinted: null,
-      firstPaymentDate: { '>=': range }
+      firstPaymentDate: { '>=': moment().subtract(90, 'days').calendar() },
+      //  or: [
+      //    {firstPaymentDateInvestor: { '!' : this.firstPaymentDate} },
+      //    {firstPaymentDateInvestor: null}
+      //  ]
+      //firstPaymentDate: { '>=': moment().add(18, 'days').calendar() },
+      // or: [
+      //   {servicingStatus: ['Current', ' Past Due']},
+      //   {purchasedDate: null },
+      //   {purchasedDate: {'>=': moment().subtract(90, 'days').calendar()}}
+      //
+      // ]
     }).exec(function(err, loans){
       if(err) res.serverError(err);
       return res.view('reports/servicingStatements', {loans, moment, numeral});

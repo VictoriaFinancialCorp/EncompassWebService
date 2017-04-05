@@ -7,10 +7,11 @@
       <th>Servicing Status</th>
       <th>1st Payment Date</th>
       <th>1st Payment Investor</th>
-      <!-- <th>Last Printed Statement</th> -->
-      <th>Payments Collected</th>
-      <th>Expected Payments</th>
-      <th>Purchase Date</th>
+      <th>Next Payment Date</th>
+      <th>Last Printed Statement</th>
+      <!-- <th>Payments Collected</th>
+      <th>Expected Payments</th> -->
+      <th>Purchased Date</th>
       <th>Investor</th>
       <th>Investor #</th>
       <th>Loan #</th>
@@ -22,12 +23,9 @@
 
   <tbody>
     <% loans.forEach( function(loan) { %>
+      <% var nextPayment = (loan.nextPayment()) ? moment(loan.nextPayment()).format('MM/DD/YY'): 'N/A' %>
 
-      <% if(loan.firstPaymentDateInvestor == null){
-        a = moment().add(1, 'months').set('date', 1);
-        b = moment(loan.firstPaymentDate);
-        loan.firstPaymentDateInvestor = (a > b) ? a: b;
-      }%>
+
       <% var expectedPayments = moment(loan.firstPaymentDateInvestor).format('MM') - moment(loan.firstPaymentDate).format('MM') %>
 
       <% if(expectedPayments !=0){ %>
@@ -37,11 +35,12 @@
           >
           <td><%= loan.servicingStatus %></td>
           <td><%= moment(loan.firstPaymentDate).format('MM/DD/YY') %></td>
-          <td><%= moment(loan.firstPaymentDateInvestor).format('MM/DD/YY') %></td>
-          <!-- <td><%= moment(loan.mortgageStatementLastPrinted).format('MM/DD') %></td> -->
-          <td><%= loan.paymentsCollected %></td>
-          <td><%= expectedPayments%></td>
-          <td><%= (loan.purchasedDate==null) ? "N/A" : moment(loan.purchasedDate).format('MM/DD') %></td>
+          <td><%= (loan.firstPaymentDateInvestor) ? moment(loan.firstPaymentDateInvestor).format('MM/DD/YY') : 'N/A' %></td>
+          <td><%= nextPayment %></td>
+          <td><%= (loan.mortgageStatementLastPrinted) ? moment(loan.mortgageStatementLastPrinted).format('MM/DD/YY') : 'N/A' %></td>
+          <!-- <td><%= loan.paymentsCollected %></td>
+          <td><%= expectedPayments%></td> -->
+          <td><%= (loan.purchasedDate==null) ? "N/A" : moment(loan.purchasedDate).format('MM/DD/YY') %></td>
           <td><%= loan.investor %></td>
           <td><%= loan.investorNum %></td>
           <td><%= loan.loanNum %></td>
