@@ -22,14 +22,29 @@
 
   <tbody>
     <% loans.forEach( function(loan) { %>
-      <% var nextPayment = (loan.firstPaymentDateInvestor == null) ? moment().add(1, 'months').set('date', 1) :loan.firstPaymentDateInvestor %>
+      <% var nextPayment = null %>
+
+      <% if(loan.firstPaymentDateInvestor == null) {
+          if(moment.duration(moment().add(1, 'months').set('date', 1).diff(moment() ) ) .asDays() > 15 ) {
+            nextPayment = moment().set('date', 1)
+          }else{
+            nextPayment = moment().add(1, 'months').set('date', 1)
+          }
+         }else{
+           nextPayment = moment(loan.firstPaymentDateInvestor)
+         }
+      %>
 
       <% var duration = moment.duration(moment(nextPayment).diff(moment(loan.firstPaymentDate))); %>
       <% var expectedPayments = Math.round(duration.asMonths());  %>
+      <% var rowStyle = ''
+      if( expectedPayments > loan.paymentsCollected && moment.duration(moment().diff(nextPayment) ).asDays() > 15 ) {
+        rowStyle = 'alert-danger'
+      }else if(expectedPayments > loan.paymentsCollected ) {
+        rowStyle = 'alert-warning'
+      } %>
 
-        <tr <% if(moment() >= moment(loan.firstPaymentDate).add(15, 'days').add(loan.paymentsCollected ,'months')   ) { %> class='alert-danger' <% }
-           else if(moment() >= moment(loan.firstPaymentDate).add(loan.paymentsCollected ,'months')  ) { %> class='alert-warning' <% } %>
-          >
+        <tr class="<%= rowStyle %>">
           <td><%= loan.servicingStatus %></td>
           <td><%= moment(loan.firstPaymentDate).format('MM/DD/YY') %></td>
           <td><%= (loan.firstPaymentDateInvestor == null) ? "N/A" : moment(loan.firstPaymentDateInvestor).format('MM/DD/YY') %></td>
