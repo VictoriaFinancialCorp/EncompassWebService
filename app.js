@@ -60,33 +60,33 @@ try {
 sails.lift(rc('sails'));
 
 //task scheduler
-var schedule = require('node-schedule');
-
-var j1 = schedule.scheduleJob({
-  hour: 20,
-  minute: 0,
-  second: 0,
-  dayOfWeek: [new schedule.Range(1, 5)]
-}, function(){
-  //console.log(Date.now() +'run backup');
-  var mySqlBackup = require('./api/controllers/BackupController').mySqlBackup;
-
-  mySqlBackup( {
-    db: 'mers',
-    login: sails.config.connections.mySql.user,
-    pw: sails.config.connections.mySql.password
-  },  function(err, output){
-    if(err) console.error(err);
-    LogService.create({
-      name:'backup',
-      msg:output.stdout
-    }, function(err, result){
-      if(err) console.error(err);
-      console.log(result)
-      console.log('mers db backed up');
-    });
-  });
-});
+// var schedule = require('node-schedule');
+//
+// var j1 = schedule.scheduleJob({
+//   hour: 20,
+//   minute: 0,
+//   second: 0,
+//   dayOfWeek: [new schedule.Range(1, 5)]
+// }, function(){
+//   //console.log(Date.now() +'run backup');
+//   var mySqlBackup = require('./api/controllers/BackupController').mySqlBackup;
+//
+//   mySqlBackup( {
+//     db: 'mers',
+//     login: sails.config.connections.mySql.user,
+//     pw: sails.config.connections.mySql.password
+//   },  function(err, output){
+//     if(err) console.error(err);
+//     LogService.create({
+//       name:'backup',
+//       msg:output.stdout
+//     }, function(err, result){
+//       if(err) console.error(err);
+//       console.log(result)
+//       console.log('mers db backed up');
+//     });
+//   });
+// });
 
 /*var j2 = schedule.scheduleJob({
   hour: 18,
@@ -99,5 +99,5 @@ var j1 = schedule.scheduleJob({
   console.log("emailing locked files");
 });*/
 
-sails.log.info('Task Scheduler Ready in app.js');
+//sails.log.info('Task Scheduler Ready in app.js');
 //end scheduler
