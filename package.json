@@ -29,7 +29,6 @@
     "mailgun-js": "^0.8.1",
     "mers-min": "^1.0.1",
     "moment": "^2.17.1",
-    "node-schedule": "^1.2.1",
     "numeral": "^2.0.4",
     "rc": "1.0.1",
     "sails": "~0.12.11",
