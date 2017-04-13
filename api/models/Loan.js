@@ -7,6 +7,7 @@
 
 module.exports = {
   tableName: 'loans',
+  migrate: 'safe',
   attributes: {
     guid:{
       type: 'string',
@@ -44,7 +45,7 @@ module.exports = {
       type:'string'
     },
     loan_term:{
-      type:'int'
+      type:'integer'
     },
     occupancy:{
       type:'string'

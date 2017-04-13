@@ -45,6 +45,8 @@
       <th>Loan #</th>
       <th>Borrower Name</th>
       <th class="text-center">Loan Amount</th>
+      <th class="text-center">Int. Rate</th>
+      <th class="text-center">Term</th>
       <th class="text-center">Inv. Lock Date</th>
       <th class="text-center">Lock Exp</th>
       <th class="text-center">Lock Type</th>
@@ -65,6 +67,8 @@
       <td><%= loan.loanNum %></td>
       <td><%= loan.b1_lname + ", " + loan.b1_fname %></td>
       <td class="text-center"><%= numeral(loan.loanAmt).format('$0,0.00') %></td>
+      <td class="text-center"><%= numeral(loan.int_rate).format('0.000') %></td>
+      <td class="text-center"><%= numeral(loan.loan_term).format('0') %></td>
       <td class="text-center"><%= (loan.investorLockDate) ? moment(loan.investorLockDate).format('MM/DD/YY') : '' %></td>
       <td class="text-center"><%= (loan.investorLockExpDate) ? moment(loan.investorLockExpDate).format('MM/DD/YY') : '' %></td>
       <td class="text-center"><%= loan.investorLockType %></td>
