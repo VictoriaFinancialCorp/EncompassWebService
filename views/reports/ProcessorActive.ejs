@@ -12,6 +12,7 @@
       <th>Borrower Name</th>
       <th>Address </th>
       <th class="text-center">Loan Amount</th>
+      <th>Occup.</th>
       <th>Purpose</th>
       <th>Term</th>
       <th>Rate</th>
@@ -47,6 +48,7 @@
         <% } %>
       </td>
       <td><%= loans[i].loan_purpose %></td>
+      <td><%= numeral(loans[i].loan_term).format('0,0') %></td>
       <td><% if(loans[i].int_rate == null){ } else{ %>
         <%= loans[i].int_rate.toFixed(3) %>
         <% } %>

@@ -18,6 +18,8 @@ module.exports = {
 		Loan.find({
 			fundedDate: date,
 			currentStatus: [" Active Loan", " Loan Originated"]
+		}, {
+			select: [ 'investor', 'investorNum', 'loanNum', 'loanAmt', 'b1_fname', 'b1_lname', 'address', 'processor', 'loanOfficer']
 		}).exec(function(err, results){
 			//console.log(results);
 			return res.view("reports/fundedLoans", {results, date} );
@@ -34,6 +36,8 @@ module.exports = {
 			currentStatus: [" Active Loan", " Loan Originated"],
 			loanFolder: "My Pipeline",
 			sort:'fundedDate ASC'
+		}, {
+			select: [ 'investor', 'investorNum', 'loanNum', 'loanAmt', 'b1_fname', 'b1_lname', 'processor', 'loanOfficer', 'fundedDate']
 		}).exec(function(err, loans){
 			//sails.log(loans);
 			return res.view("reports/LoansNotPurchased", {numeral, loans, date});
@@ -50,6 +54,8 @@ module.exports = {
 			currentStatus: [" Active Loan", " Loan Originated"],
 			loanFolder: "My Pipeline",
 			sort:'fundedDate ASC'
+		}, {
+			select: ['baseYSP', 'investor', 'investorNum', 'loanNum', 'loanAmt', 'int_rate', 'address', 'victoriaLockDate', 'investorLockDate', 'currentMilestone', 'loan_purpose', 'occupancy', 'investorLockExpDate', 'CTCDate', 'totalAdj', 'netYSP', 'netSRP', 'fundedDate', 'processor', 'loanOfficer', 'investorLockType', 'b1_fname', 'b1_lname']
 		}).exec(function(err, loans){
 			if (err) return res.json(err);
 			return res.view('reports/FundedWOInvestorLock', {loans, date});
@@ -65,6 +71,8 @@ module.exports = {
 			currentStatus: [" Active Loan", " Loan Originated"],
 			loanFolder: "My Pipeline",
 			sort:'CTCDate ASC'
+		}, {
+			select: ['baseYSP', 'investor', 'investorNum', 'loanNum', 'loanAmt', 'int_rate', 'address', 'victoriaLockDate', 'investorLockDate', 'currentMilestone', 'loan_purpose', 'occupancy', 'investorLockExpDate', 'CTCDate', 'totalAdj', 'netYSP', 'netSRP', 'fundedDate', 'processor', 'loanOfficer', 'investorLockType', 'b1_fname', 'b1_lname']
 		}).exec(function(err, loans){
 			if (err) return res.json(err);
 			return res.view('reports/CTCNotFunded', {loans, date});
@@ -72,6 +80,7 @@ module.exports = {
 	},
 	ProcessorActive : function(req, res){
 		var moment = require('moment');
+		var numeral = require('numeral');
 		date = moment(new Date()).format('MM/DD/YYYY');
 
 		var tempDate = new Date();
@@ -84,9 +93,11 @@ module.exports = {
 			currentStatus: [" Active Loan", " Loan Originated", null],
 			loanFolder: "My Pipeline",
 			sort:'startedDate'
+		}, {
+			select: ['docsDrawnDate', 'startedDate', 'submittalDate', 'currentMilestone', 'investor', 'occupancy', 'int_rate', 'loan_purpose', 'loan_term', 'investorNum', 'loanNum', 'loanAmt', 'b1_fname', 'b1_lname', 'address', 'victoriaLockDate', 'investorLockDate', 'investorLockExpDate', 'processor', 'loanOfficer']
 		}).exec(function(err, loans){
 			if (err) return res.serverError(err);
-			return res.view('reports/ProcessorActive', {loans, date, filterDate, moment});
+			return res.view('reports/ProcessorActive', {loans, date, filterDate, moment, numeral});
 		})
 	},
 	docsDrawn : function(req, res){
@@ -97,6 +108,8 @@ module.exports = {
 			fundedDate: null,
 			currentStatus: [" Active Loan", " Loan Originated", null],
 			sort:'docsDrawnDate'
+		}, {
+			select: ['docsDrawnDate', 'currentMilestone', 'investor', 'investorNum', 'loanNum', 'loanAmt', 'b1_fname', 'b1_lname', 'address', 'victoriaLockDate', 'investorLockDate', 'investorLockExpDate', 'processor', 'loanOfficer']
 		}).exec(function(err, loans){
 			if (err) return res.serverError(err);
 			return res.view('reports/docsDrawn', {loans, moment, numeral});
