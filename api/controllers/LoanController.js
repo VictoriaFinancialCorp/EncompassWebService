@@ -8,28 +8,81 @@
 module.exports = {
 	FundedLoans: function (req, res) {
 		var moment = require('moment');
+		var numeral = require('numeral');
+
 		var date;
 		if(!req.param('date')){
 			date = moment(new Date()).format('MM/DD/YYYY');
 		}else{
 			date = req.param('date');
 		}
+		var title = "Loans funded: " + date;
 
 		Loan.find({
 			fundedDate: date,
 			currentStatus: [" Active Loan", " Loan Originated"]
 		}, {
 			select: [ 'investor', 'investorNum', 'loanNum', 'loanAmt', 'b1_fname', 'b1_lname', 'address', 'processor', 'loanOfficer']
-		}).exec(function(err, results){
+		}).exec(function(err, loans){
 			//console.log(results);
-			return res.view("reports/fundedLoans", {results, date} );
+			var header = [
+				'Investor',
+				'Inv. #',
+				'Loan #',
+				'Borrower Name',
+				'Loan Amt',
+				'Processor',
+				'Loan Officer'
+			];
+
+			var loans_f = [];
+			var loan_total = 0;
+			for(var i=0; i< loans.length; i++){
+				loan_total += parseInt(loans[i].loanAmt.trim().replace(',','').replace('$',''));
+				//console.log(loan_total)
+				// var loan = {
+				// 	'investor':loans[i].investor.toUpperCase().trim(),
+				// 	'investorNum':loans[i].investorNum.toUpperCase().trim(),
+				// 	'loanNum':loans[i].loanNum.toUpperCase().trim(),
+				// 	'loanAmt':numeral(loans[i].loanAmt.replace('$','')).format('$0,000.00'),
+				// 	'name': loans[i].b1_lname.concat(",",loans[i].b1_fname).toUpperCase().trim(),
+				// 	'processor':loans[i].processor.trim(),
+				// 	'loanOfficer':loans[i].loanOfficer.trim(),
+				// 	'fundedDate':moment(loans[i].fundedDate).format('M/D/YY'),
+				// 	'daysOut':Math.floor(Math.abs(new Date() - loans[i].fundedDate)/1000/60/60/24)
+				// };
+				var loan = [
+					loans[i].investor.toUpperCase().trim(),
+					loans[i].investorNum.toUpperCase().trim(),
+					loans[i].loanNum.toUpperCase().trim(),
+					numeral(loans[i].loanAmt.trim()).format('$0,000.00'),
+					loans[i].b1_lname.concat(",",loans[i].b1_fname).toUpperCase().trim(),
+					loans[i].processor.trim(),
+					loans[i].loanOfficer.trim()
+				];
+				loans_f.push(loan);
+			}
+			var footer = [
+				"Count: " + loans.length,
+				"Loan Total: " + numeral(loan_total).format('$0,000')
+			];
+			var output = {title, header, 'loans':loans_f, footer};
+			if(typeof req.param('json') == "undefined"){
+				return res.view("reports/report1date", {numeral, data: output, date});
+			}else if(req.param('json').toLowerCase() == 'json'){
+				return res.json(output);
+			}else{
+				return res.notFound();
+			}
 		});
 
   },
 	LoansNotPurchased: function(req, res){
 		var numeral = require('numeral');
 		var moment = require('moment');
-		var date = moment(new Date()).format('MM/DD/YYYY');
+		var date = moment(new Date()).format('M/DD/YYYY');
+		var title = "Loans Not Purchased as of: " + date;
+
 		Loan.find({
 			fundedDate: { '!': null },
 			purchasedDate:  null ,
@@ -40,7 +93,60 @@ module.exports = {
 			select: [ 'investor', 'investorNum', 'loanNum', 'loanAmt', 'b1_fname', 'b1_lname', 'processor', 'loanOfficer', 'fundedDate']
 		}).exec(function(err, loans){
 			//sails.log(loans);
-			return res.view("reports/LoansNotPurchased", {numeral, loans, date});
+			var header = [
+				'Investor',
+				'Inv. #',
+				'Loan #',
+				'Borrower Name',
+				'Loan Amt',
+				'Processor',
+				'Loan Officer',
+				'Funded Date',
+				'Days Out'
+			];
+			var loans_f = [];
+			var loan_total = 0;
+			for(var i=0; i< loans.length; i++){
+				loan_total += parseInt(loans[i].loanAmt.trim().replace(',','').replace('$',''));
+				//console.log(loan_total)
+				// var loan = {
+				// 	'investor':loans[i].investor.toUpperCase().trim(),
+				// 	'investorNum':loans[i].investorNum.toUpperCase().trim(),
+				// 	'loanNum':loans[i].loanNum.toUpperCase().trim(),
+				// 	'loanAmt':numeral(loans[i].loanAmt.replace('$','')).format('$0,000.00'),
+				// 	'name': loans[i].b1_lname.concat(",",loans[i].b1_fname).toUpperCase().trim(),
+				// 	'processor':loans[i].processor.trim(),
+				// 	'loanOfficer':loans[i].loanOfficer.trim(),
+				// 	'fundedDate':moment(loans[i].fundedDate).format('M/D/YY'),
+				// 	'daysOut':Math.floor(Math.abs(new Date() - loans[i].fundedDate)/1000/60/60/24)
+				// };
+				var loan = [
+					loans[i].investor.toUpperCase().trim(),
+					loans[i].investorNum.toUpperCase().trim(),
+					loans[i].loanNum.toUpperCase().trim(),
+					numeral(loans[i].loanAmt.trim()).format('$0,000.00'),
+					loans[i].b1_lname.concat(",",loans[i].b1_fname).toUpperCase().trim(),
+					loans[i].processor.trim(),
+					loans[i].loanOfficer.trim(),
+					moment(loans[i].fundedDate).format('M/D/YY'),
+					Math.floor(Math.abs(new Date() - loans[i].fundedDate)/1000/60/60/24)
+				];
+				loans_f.push(loan);
+			}
+			var footer = [
+				"Count: " + loans.length,
+				"Loan Total: " + numeral(loan_total).format('$0,000')
+			];
+
+			var output = {title, header, 'loans':loans_f, footer};
+			if(typeof req.param('json') == "undefined"){
+				return res.view("reports/reportNoParam", {numeral, data: output, date});
+			}else if(req.param('json').toLowerCase() == 'json'){
+				return res.json(output);
+			}else{
+				return res.notFound();
+			}
+
 		});
 
 	},

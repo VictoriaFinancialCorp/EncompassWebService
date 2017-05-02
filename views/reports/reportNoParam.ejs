@@ -1,0 +1,24 @@
+<div class="container">
+  <h2><%= data.title %></h2>
+  <table class="table text-center" id="table">
+    <tr>
+    <% data.header.forEach(function(col){ %>
+      <th class="text-center"><%=col%></th>
+    <% }); %>
+    </tr>
+
+    <% data.loans.forEach(function(loan){ %>
+    <tr>
+      <% loan.forEach(function(col){ %>
+        <td><%= col %></td>
+      <% }); %>
+    </tr>
+    <% }); %>
+
+    <tr>
+    <% data.footer.forEach(function(col){ %>
+      <th class="text-center" colspan="<%= Math.floor(data.header.length/data.footer.length) %>"><%= col %></th>
+    <% }); %>
+    </tr>
+  </table>
+</div>

@@ -1,0 +1,42 @@
+<div class="container">
+  <h2><%= data.title %></h2>
+
+  <div class="container">
+      <div class="row" >
+        <form method="get" style="max-width:300px;">
+          <span class="input-group date" data-provide="datepicker" class="datepicker">
+            <input type="text" class="form-control" name="date" value="<%= date %>"/>
+            <div class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </div>
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="submit">Submit</button>
+            </span>
+          </span>
+        </form>
+      </div>
+  </div>
+  <br/><br/>
+
+  <table class="table text-center" id="table">
+    <tr>
+    <% data.header.forEach(function(col){ %>
+      <th class="text-center"><%=col%></th>
+    <% }); %>
+    </tr>
+
+    <% data.loans.forEach(function(loan){ %>
+    <tr>
+      <% loan.forEach(function(col){ %>
+        <td><%= col %></td>
+      <% }); %>
+    </tr>
+    <% }); %>
+
+    <tr>
+    <% data.footer.forEach(function(col){ %>
+      <th class="text-center" colspan="<%= Math.floor(data.header.length/data.footer.length) %>"><%= col %></th>
+    <% }); %>
+    </tr>
+  </table>
+</div>

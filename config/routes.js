@@ -45,7 +45,10 @@ module.exports.routes = {
   '/changePass' : 'UserController.changePass',
 
   '/fundedLoans' : 'LoanController.fundedLoans',
+  '/fundedLoans/show/:date' : 'LoanController.fundedLoans',
+  '/fundedLoans/:json' : 'LoanController.fundedLoans',
   '/LoansNotPurchased' : 'LoanController.LoansNotPurchased',
+  '/LoansNotPurchased/:json' : 'LoanController.LoansNotPurchased',
   '/FundedWOInvestorLock' : 'LoanController.FundedWOInvestorLock',
   '/CTCNotFunded' : 'LoanController.CTCNotFunded',
   '/ProcessorActive' : 'LoanController.ProcessorActive',

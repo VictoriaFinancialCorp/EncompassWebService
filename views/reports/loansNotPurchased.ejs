@@ -14,7 +14,7 @@
     <th class="text-center">Days Out</th>
   </tr>
 
-  <% var loanAmtTotal = numeral(0.00); %>
+  <%/ var loanAmtTotal = numeral(0.00); %>
 
   <% loans.forEach(function(loan) { %>
 
@@ -23,12 +23,12 @@
     <td><%= loan.investorNum %></td>
     <td><%= loan.loanNum %></td>
     <td><%= loan.b1_lname + ", " + loan.b1_fname %></td>
-    <td class="text-center"><%= numeral(loan.loanAmt).format('$0,0.00') %></td>
-    <% loanAmtTotal.add(numeral(loan.loanAmt).value()) %>
+    <td class="text-center"><%= loan.loanAmt %></td>
+    <%/ loanAmtTotal.add(numeral(loan.loanAmt).value()) %>
     <td><%= loan.processor %></td>
     <td><%= loan.loanOfficer %></td>
-    <td class="text-center"><%= dateToFormattedString(loan.fundedDate) %></td>
-    <td class="text-center"><%= Math.floor(Math.abs(new Date() - loan.fundedDate)/1000/60/60/24) %></td>
+    <td class="text-center"><%= loan.fundedDate %></td>
+    <td class="text-center"><%/ Math.floor(Math.abs(new Date() - loan.fundedDate)/1000/60/60/24) %></td>
   </tr>
   <% }); %>
 
