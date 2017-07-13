@@ -8,7 +8,7 @@
 module.exports = {
 	show: function(req, res){
 		const fs = require('fs');
-		var path = sails.config.appPath + "/assets/logs/myLog.log";
+		var path = sails.config.appPath + "/assets/logs/updates.log";
 
 		//server log file if exists
 		if(fs.existsSync(path)){
@@ -43,7 +43,7 @@ module.exports = {
 
 	admin: function(req, res){
 		const fs = require('fs');
-		var path = sails.config.appPath + "/assets/logs/updates.log";
+		var path = sails.config.appPath + "/assets/logs/myLog.log";
 
 		if(fs.existsSync(path)){
 			var lineReader = require('readline').createInterface({
@@ -60,7 +60,7 @@ module.exports = {
 				return res.ok(output);
 			})
 		}else{
-			return res.serverError("`updates.log` file not found");
+			return res.serverError("`myLog.log` file not found");
 		}
 	}
 
