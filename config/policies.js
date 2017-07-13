@@ -51,6 +51,10 @@ module.exports.policies = {
   },
   LoanController:{
     '*':true
+  },
+  LogController:{
+    'show':true,
+    'admin':'isAdmin'
   }
 
   /***************************************************************************

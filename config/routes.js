@@ -57,6 +57,7 @@ module.exports.routes = {
 
   '/logs' : 'LogController.show',
   '/logs/show' : 'LogController.show',
+  '/logs/admin' : 'LogController.admin',
 
   '/servicing-collect': 'ServicingController.collect',
   '/servicing-statements': 'ServicingController.statements',
